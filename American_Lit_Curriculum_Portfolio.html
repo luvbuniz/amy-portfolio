@@ -3,17 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>27-Week American Literature Curriculum</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>27-Week American Literature Curriculum | UDL Redesign</title>
+    
+    <!-- Font: Inter (High readability, modern sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons: FontAwesome for visual cues -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
         :root {
-            --primary-blue: #1a2c4e;
-            --accent-gold: #c5a059;
-            --light-bg: #f8f9fa;
-            --text-dark: #333;
-            --text-light: #666;
-            --white: #ffffff;
-            --spacing-unit: 1rem;
+            /* --- OPTION A: MODERN MINIMALIST PALETTE --- */
+            --bg-body: #F9FAFB;        /* Soft Off-White */
+            --bg-card: #FFFFFF;        /* Pure White */
+            --text-main: #1E1E1E;      /* Deep Charcoal */
+            --text-muted: #4B5563;     /* Cool Gray */
+            --accent-primary: #3B82F6; /* Electric Blue */
+            --accent-light: #EFF6FF;   /* Very Light Blue */
+            --border-color: #E5E7EB;   /* Light Gray Border */
+            --success-green: #10B981;  /* For Learning Targets */
+            --warning-yellow: #F59E0B; /* For Teacher Tips */
+            
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1.5rem;
+            --spacing-lg: 3rem;
         }
 
         * {
@@ -23,12 +38,12 @@
         }
 
         body {
-            font-family: 'Lato', sans-serif;
-            color: var(--text-dark);
-            line-height: 1.5;
-            background: #eef1f5;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.6;
             margin: 0;
-            padding: 20px;
+            padding: 40px;
         }
 
         /* --- PRINT SETTINGS --- */
@@ -37,1471 +52,1487 @@
             size: letter;
         }
 
-        .document-container {
+        .page-break {
+            page-break-before: always;
+        }
+
+        .no-break {
+            page-break-inside: avoid;
+        }
+
+        /* --- CONTAINERS --- */
+        .container {
             max-width: 1000px;
             margin: 0 auto;
-            background: var(--white);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            margin: 0;
-        }
-
-        h1 { color: var(--primary-blue); }
-        h2 { color: var(--primary-blue); font-size: 1.5rem; border-bottom: 2px solid var(--accent-gold); padding-bottom: 0.5rem; margin-bottom: 1rem; }
-        h3 { color: var(--accent-gold); font-size: 1.1rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
-        
-        /* --- PAGE STRUCTURE --- */
-        .curriculum-page {
-            padding: 40px;
-            border-bottom: 1px solid #eee;
-            page-break-inside: avoid;
-            page-break-after: always;
-            position: relative;
-        }
-
+        /* --- FRONT PAGE --- */
         .cover-page {
-            height: 11in; /* Approx print height */
+            height: 10in;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, #2c3e50 100%);
-            color: white;
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 4rem;
+            border-left: 20px solid var(--accent-primary);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
         }
 
-        .cover-page h1 { color: white; font-size: 3.5rem; margin-bottom: 1rem; }
-        .cover-page h2 { color: var(--accent-gold); border: none; font-size: 1.8rem; }
-        
-        /* --- WEEKLY CARD LAYOUT --- */
+        .cover-tag {
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--accent-primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .cover-title {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        .cover-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        .cover-meta {
+            margin-top: 4rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .meta-box {
+            background: var(--bg-body);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .meta-label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .meta-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+        }
+
+        /* --- WEEKLY LAYOUT --- */
+        .week-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            overflow: hidden;
+        }
+
         .week-header {
+            background: var(--text-main);
+            color: white;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
-            background: var(--primary-blue);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 4px 4px 0 0;
         }
 
-        .week-number {
-            background: var(--accent-gold);
-            color: var(--primary-blue);
-            padding: 5px 10px;
-            font-weight: bold;
-            border-radius: 3px;
-            font-family: 'Lato', sans-serif;
+        .week-title-group h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
         }
 
-        .grid-layout {
+        .week-tagline {
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 4px;
+        }
+
+        .week-badge {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .week-body {
+            padding: 2rem;
+        }
+
+        /* --- GRID LAYOUTS --- */
+        .grid-2-col {
             display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 25px;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-3-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         /* --- SECTIONS --- */
-        .card-box {
-            background: var(--light-bg);
-            padding: 15px;
-            border-radius: 4px;
-            border-left: 4px solid var(--accent-gold);
-            margin-bottom: 15px;
+        .section-header {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .section-header i { color: var(--accent-primary); }
+
+        .card {
+            background: var(--bg-body);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
         }
 
         .lit-device-box {
-            background: white;
-            border: 1px solid var(--primary-blue);
-            color: var(--primary-blue);
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 4px;
+            background: var(--accent-light);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1.5rem;
+            border-radius: 0 8px 8px 0;
         }
 
-        .timeline-list {
-            list-style: none;
-            padding: 0;
+        .lit-device-title {
+            color: var(--accent-primary);
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
         }
 
-        .timeline-item {
-            display: flex;
-            margin-bottom: 10px;
-            align-items: flex-start;
+        /* --- LISTS --- */
+        ul {
+            margin: 0;
+            padding-left: 1.2rem;
         }
 
-        .time-badge {
-            background: #e0e0e0;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-right: 10px;
-            min-width: 60px;
-            text-align: center;
+        li {
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
         }
 
-        .udl-highlight {
-            background: rgba(197, 160, 89, 0.1);
-            padding: 10px;
-            border-radius: 4px;
+        /* --- TIMELINE / LESSON FLOW --- */
+        .flow-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .flow-table td {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        .flow-table tr:last-child td { border-bottom: none; }
+
+        .time-col {
+            width: 60px;
+            font-weight: 700;
+            color: var(--accent-primary);
+            font-size: 0.85rem;
+        }
+
+        .activity-col strong {
+            display: block;
+            color: var(--text-main);
+            margin-bottom: 2px;
+        }
+
+        .activity-col span {
             font-size: 0.9rem;
-            margin-top: 10px;
+            color: var(--text-muted);
         }
 
-        .udl-badge {
-            background: var(--accent-gold);
-            color: white;
-            font-size: 0.7rem;
-            padding: 2px 5px;
-            border-radius: 3px;
-            margin-right: 5px;
-            text-transform: uppercase;
+        /* --- STATION CARDS --- */
+        .station-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
         }
 
-        .icon { margin-right: 5px; }
+        .station-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 6px;
+            display: flex;
+            align-items: start;
+            gap: 10px;
+        }
+
+        .station-icon {
+            background: var(--bg-body);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            color: var(--accent-primary);
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+
+        /* --- UDL & TEACHER TIPS --- */
+        .tip-box {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .tip-teacher {
+            background: #FFFBEB;
+            border: 1px solid #FCD34D;
+            color: #92400E;
+        }
+
+        .tip-udl {
+            background: #ECFDF5;
+            border: 1px solid #6EE7B7;
+            color: #065F46;
+        }
+        
+        .tip-icon { font-size: 1.2rem; }
 
         /* --- FOOTER --- */
-        .page-footer {
-            position: absolute;
-            bottom: 20px;
-            left: 40px;
-            right: 40px;
-            border-top: 1px solid #eee;
-            padding-top: 10px;
-            display: flex;
-            justify-content: space-between;
+        .footer-bar {
+            margin-top: 4rem;
+            text-align: center;
+            color: var(--text-muted);
             font-size: 0.8rem;
-            color: #999;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
         }
     </style>
 </head>
 <body>
 
-<div class="document-container">
+<div class="container">
 
-    <!-- COVER PAGE -->
-    <div class="curriculum-page cover-page">
-        <h1>AMERICAN LITERATURE<br>& COMPOSITION</h1>
-        <h2>27-Week Curriculum Scope & Sequence</h2>
-        <p style="margin-top: 2rem; font-size: 1.2rem; color: #ddd;">Integrated Literary Analysis • Universal Design for Learning • Cultural Perspectives</p>
-        <div style="margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 1rem;">
-            <p>Designed for Mixed-Ability Classrooms</p>
-        </div>
-    </div>
-
-    <!-- OVERVIEW PAGE -->
-    <div class="curriculum-page">
-        <h2>Curriculum Overview</h2>
-        <p>This 27-week scope and sequence is designed to guide students through a diverse exploration of American Literature. The curriculum integrates rigorous literary analysis with accessible, high-engagement strategies, ensuring all learners can access complex texts.</p>
+    <!-- FRONT PAGE -->
+    <div class="cover-page">
+        <div class="cover-tag">Instructional Design Portfolio</div>
+        <h1 class="cover-title">American Literature<br>& Composition</h1>
+        <p class="cover-subtitle">A 27-week UDL-based curriculum optimized for mixed-ability classrooms, focusing on accessibility, engagement, and rigorous literary analysis.</p>
         
-        <div class="grid-layout" style="margin-top: 2rem;">
-            <div>
-                <h3>Instructional Methodology</h3>
-                <ul style="padding-left: 1.2rem;">
-                    <li><strong>UDL Framework:</strong> Multiple means of representation, expression, and engagement built into every lesson.</li>
-                    <li><strong>Routine-Based:</strong> Predictable 50-minute structure to reduce cognitive load.</li>
-                    <li><strong>Multimodal:</strong> Emphasis on visual, auditory, and kinesthetic learning.</li>
-                </ul>
+        <div class="cover-meta">
+            <div class="meta-box">
+                <span class="meta-label">Duration</span>
+                <span class="meta-value">27 Weeks</span>
             </div>
-            <div>
-                <h3>Standard Class Structure (50 Min)</h3>
-                <div class="card-box" style="border-left-color: var(--primary-blue);">
-                    <div class="timeline-item"><span class="time-badge">5 min</span> <span>Opening Routine & Emotion Check-in</span></div>
-                    <div class="timeline-item"><span class="time-badge">15 min</span> <span>Slide Presentation & Literary Analysis</span></div>
-                    <div class="timeline-item"><span class="time-badge">10 min</span> <span>Guided Discussion & Analysis</span></div>
-                    <div class="timeline-item"><span class="time-badge">10 min</span> <span>Classwork Stations & Application</span></div>
-                    <div class="timeline-item"><span class="time-badge">5 min</span> <span>Grammar Focus</span></div>
-                    <div class="timeline-item"><span class="time-badge">5 min</span> <span>Homework Prep</span></div>
-                </div>
+            <div class="meta-box">
+                <span class="meta-label">Format</span>
+                <span class="meta-value">UDL / Mixed-Ability</span>
             </div>
-        </div>
-        <div class="page-footer">
-            <span>Curriculum Overview</span>
-            <span>American Literature Portfolio</span>
+            <div class="meta-box">
+                <span class="meta-label">Designer</span>
+                <span class="meta-value">Senior ID Portfolio</span>
+            </div>
         </div>
     </div>
 
-    <!-- WEEK 1 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 1</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Perseverance and Encouragement</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Finding Strength in Rhyme"</div>
-        </div>
+    <div class="page-break"></div>
 
-        <div class="grid-layout">
-            <!-- Left Column -->
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"Don't Quit"</strong><br>by Edgar A. Guest</p>
-
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Metaphor:</strong> (Life as a journey)</li>
-                        <li><strong>Imagery:</strong> (Visualizing hope)</li>
-                        <li><strong>Rhyme Scheme:</strong> AABB Analysis</li>
-                    </ul>
-                </div>
-
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze the effect of AABB rhyme scheme on poem structure.</li>
-                    <li>Students will identify and interpret central metaphors regarding perseverance.</li>
-                    <li>Students will apply grammar rules to identify fragments vs. complete sentences.</li>
-                </ul>
+    <!-- CURRICULUM OVERVIEW / ACCOMMODATIONS -->
+    <div class="week-container no-break">
+        <div class="week-header" style="background: var(--accent-primary);">
+            <div class="week-title-group">
+                <h2>Curriculum Overview & UDL Accommodations</h2>
+                <div class="week-tagline" style="color: white; opacity: 0.9;">Integrated Support Structures</div>
             </div>
-
-            <!-- Right Column -->
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item">
-                            <span class="time-badge">Opening</span>
-                            <span><strong>Emotion Check-in:</strong> "Don't Quit" image association & visual scale.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Lecture</span>
-                            <span><strong>Author Context:</strong> Guest as "People's Poet." <strong>Concept:</strong> Metaphor (Life twists) & Rhyme Scheme visualization.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Discussion</span>
-                            <span>"How does the rhythm affect the message?" Personal connection wheel.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Activity</span>
-                            <span><strong>Stations:</strong> Rhyme marking, Metaphor creation stanza, Rhythm clapping.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Grammar</span>
-                            <span><strong>Complete Sentences:</strong> Fragment vs. Sentence (Car analogy).</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="udl-highlight">
-                    <span class="udl-badge">Teacher Tips</span>
-                    Color-code rhyming lines for visual support. Use clapping to demonstrate meter/rhythm kinesthetically.
-                </div>
-                <div style="margin-top:10px; font-size: 0.85rem; color: #666;">
-                    <strong>Materials:</strong> 43" Screen, Poem Copies, Color Highlighters.
-                </div>
-            </div>
+            <div class="week-badge" style="background: rgba(255,255,255,0.2);">FOUNDATION</div>
         </div>
-        <div class="page-footer">
-            <span>Week 1</span>
-            <span>American Literature Portfolio</span>
-        </div>
-    </div>
-
-    <!-- WEEK 2 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 2</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Hope and Sacrificial Love</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Symbolism in Sacrifice"</div>
-        </div>
-
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Last Leaf"</strong><br>by O. Henry</p>
-
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Symbolism:</strong> (Leaf = Hope)</li>
-                        <li><strong>Situational Irony:</strong> (Saving life by losing it)</li>
-                    </ul>
-                </div>
-
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will evaluate how specific objects function as symbols.</li>
-                    <li>Students will analyze situational irony in the story's resolution.</li>
-                    <li>Students will correctly use comma rules in lists and introductions.</li>
-                </ul>
-            </div>
-
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item">
-                            <span class="time-badge">Opening</span>
-                            <span>Falling leaves visual. Hope scale check-in (1-10).</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Lecture</span>
-                            <span><strong>Context:</strong> Greenwich Village/O. Henry. <strong>Concept:</strong> Defining Symbolism vs. Irony.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Discussion</span>
-                            <span>"What does the painted leaf represent?" Character motivation web.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Activity</span>
-                            <span><strong>Stations:</strong> Modern Symbol Hunt, Irony Journaling, Leaf Art.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Grammar</span>
-                            <span><strong>Commas:</strong> Lists & FANBOYS (Traffic light system).</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="udl-highlight">
-                    <span class="udl-badge">UDL Strategy</span>
-                    Use an emoji progression (😊→😢) to visually map situational irony.
-                </div>
-            </div>
-        </div>
-        <div class="page-footer">
-            <span>Week 2</span>
-            <span>American Literature Portfolio</span>
-        </div>
-    </div>
-
-    <!-- WEEK 3 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 3</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Compassion and Empathy</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Character Through Action"</div>
-        </div>
-
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"Stray"</strong><br>by Cynthia Rylant</p>
-
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Characterization:</strong> Direct vs. Indirect</li>
-                        <li><strong>Mood:</strong> Weather as emotion</li>
-                    </ul>
-                </div>
-
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will distinguish between direct and indirect characterization using S.T.E.A.L.</li>
-                    <li>Students will analyze how setting impacts the mood of a narrative.</li>
-                    <li>Students will demonstrate subject-verb agreement in writing.</li>
-                </ul>
-            </div>
-
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item">
-                            <span class="time-badge">Opening</span>
-                            <span>Puppy image. "How do we show care?" Compassion check-in.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Lecture</span>
-                            <span><strong>Concept:</strong> S.T.E.A.L. (Speech, Thoughts, Effects, Actions, Looks). Mood through weather (Snow=Isolation).</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Discussion</span>
-                            <span>Family perspectives chart. "Why does Dad change his mind?"</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Activity</span>
-                            <span><strong>Stations:</strong> Character Interviews, Mood Collages, Dialogue Writing.</span>
-                        </li>
-                        <li class="timeline-item">
-                            <span class="time-badge">Grammar</span>
-                            <span><strong>Agreement:</strong> Subject-Verb movement practice (Singular/Plural).</span>
-                        </li>
-                    </ul>
-                </div>
-                 <div class="udl-highlight">
-                    <span class="udl-badge">Teacher Tip</span>
-                    Use sound effects (wind/silence) during reading to establish mood auditorily.
-                </div>
-            </div>
-        </div>
-        <div class="page-footer">
-            <span>Week 3</span>
-            <span>American Literature Portfolio</span>
-        </div>
-    </div>
-
-    <!-- WEEK 4 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 4</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Perseverance and Compassion</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Life as a Journey"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"A Worn Path"</strong><br>by Eudora Welty</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Extended Metaphor:</strong> (Journey = Life)</li>
-                        <li><strong>Dialect:</strong> (Voice & Authenticity)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will interpret the physical journey as an extended metaphor for life challenges.</li>
-                    <li>Students will analyze the use of dialect to establish character authenticity.</li>
-                    <li>Students will apply capitalization rules correctly.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Winding path visual. "What path are you on?" Check-in.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Extended Metaphor (Obstacles = Struggles). Dialect & Respect.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>"Why make the journey?" Obstacle analysis chart.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Journey Maps, Helper Design, Modern Parallels.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Capitalization:</strong> Scavenger hunt for proper nouns.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-         <div class="page-footer"><span>Week 4</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 5 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 5</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Family Expectations & Identity</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Two Worlds, One Self"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"Two Kinds"</strong><br>by Amy Tan</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Conflict Types:</strong> Person vs. Person/Self/Society</li>
-                        <li><strong>Theme:</strong> Identity & Expectation</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will categorize conflicts as internal or external.</li>
-                    <li>Students will discuss the impact of cultural expectations on identity.</li>
-                    <li>Students will use pronouns correctly (subject, object, possessive).</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Identity Pie Chart. "Who decides who you are?"</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Immigrant experience. <strong>Concept:</strong> 3 Types of Conflict.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Expectations balance scale. Identity web creation.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Role-play scenarios, "Two Kinds" self-collage.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Pronouns:</strong> Antecedent clarity drills.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 5</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 6 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 6</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Heritage and Respect</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Use vs. Preserve"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"Everyday Use"</strong><br>by Alice Walker</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Symbolism:</strong> (The Quilt)</li>
-                        <li><strong>Point of View:</strong> Reliability & Bias</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will debate the symbolic meaning of heritage objects (living vs. static).</li>
-                    <li>Students will analyze how Point of View shapes the reader's understanding of characters.</li>
-                    <li>Students will use apostrophes correctly for possession.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Quilt image. "Should treasures be used?" Heritage check-in.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Symbolism (Quilt as history). POV (Mama as narrator).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>"Who deserves the quilt?" Living tradition vs. Museum piece.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Quilt Square Design, Heritage Storytelling, POV Debate.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Apostrophes:</strong> Singular vs. Plural Possessive.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 6</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 7 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 7</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Tradition and Wisdom</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Passing the Torch"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Medicine Bag"</strong><br>by Virginia Driving Hawk Sneve</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Foreshadowing:</strong> (Hints of future)</li>
-                        <li><strong>Theme:</strong> Tradition vs. Modernity</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will identify foreshadowing techniques used to signal plot developments.</li>
-                    <li>Students will explore the tension between cultural tradition and modern life.</li>
-                    <li>Students will distinguish between adjectives and adverbs.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"Wisdom Keepers" circle. Tradition check-in.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Rosebud Sioux. <strong>Concept:</strong> Foreshadowing (Grandpa's arrival/state).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Martin's journey. Tradition vs. Embarrassment.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Medicine Bag design (meaningful items), Interview planning.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Modifiers:</strong> Adjective vs. Adverb sort.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 7</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 8 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 8</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Miscommunication & Compassion</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"Reading Between the Lines"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"A Day's Wait"</strong><br>by Ernest Hemingway</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Minimalism:</strong> (Iceberg Theory)</li>
-                        <li><strong>Subtext:</strong> (Unspoken meaning)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will infer subtext and character emotion from minimalist dialogue.</li>
-                    <li>Students will analyze how miscommunication drives the narrative arc.</li>
-                    <li>Students will identify and correct run-on sentences.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Fahrenheit vs. Celsius visual. Misunderstanding check-in.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Minimalism (Less is more). Subtext (The boy's internal fear).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Miscommunication map. "Where could this have been fixed?"</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Clarification practice, Emotion ID, Comfort strategies.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Run-ons:</strong> Sentence stop signs & fixes.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 8</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 9 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 9</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Individuality vs. Conformity</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"The Masks We Wear"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"Seventh Grade"</strong><br>by Gary Soto</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Internal Monologue:</strong> (Private thoughts)</li>
-                        <li><strong>Dramatic Irony:</strong> (Audience knows truth)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze how internal monologue reveals character motivation.</li>
-                    <li>Students will identify moments of dramatic irony and their effect on humor/tension.</li>
-                    <li>Students will use quotation marks correctly in dialogue.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"When are you most yourself?" Authenticity check-in.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Internal Monologue (Victor's thoughts) vs. Dramatic Irony (French class).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>The "Mask" chart. Mr. Bueller's choice: Kindness or Truth?</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Authenticity card sort, "Cringe" meter analysis, Rewrite the scene.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Dialogue:</strong> Quotation mark rules & "Air Quotes" practice.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 9</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 10 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 10</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Imagination and Reality</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"The Great Escape"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Secret Life of Walter Mitty"</strong><br>by James Thurber</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Contrast:</strong> (Mundane vs. Heroic)</li>
-                        <li><strong>Theme:</strong> Escapism</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will contrast the protagonist's internal fantasy world with his external reality.</li>
-                    <li>Students will evaluate the role of escapism as a coping mechanism.</li>
-                    <li>Students will distinguish between common homophones (There/Their/They're).</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"Where does your mind wander?" Daydream categories.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Thurber's humor. <strong>Concept:</strong> Contrast (Henpecked vs. Commander).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Why do we dream? Healthy vs. Unhealthy escapism balance board.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Dream Journal, Sound Triggers, Reality Improvement plan.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Homophones:</strong> Visual hand signals practice.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 10</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 11 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 11</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">American Humor and Dreams</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"The Tall Tale"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Celebrated Jumping Frog..."</strong><br>by Mark Twain</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Frame Narrative:</strong> (Story within story)</li>
-                        <li><strong>Tall Tale:</strong> (Hyperbole & Dialect)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will deconstruct the structure of a frame narrative.</li>
-                    <li>Students will identify elements of the "Tall Tale" genre (exaggeration).</li>
-                    <li>Students will maintain verb tense consistency in narrative writing.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"Ridiculous competitions." Betting culture check-in.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Gold Rush/Twain. <strong>Concept:</strong> Frame Narrative (Wheeler vs. Narrator).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>American Dream vs. Delusion. The "Con Artist" dynamic.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Modern Tall Tales, Frog Jump comp, Dialect translation.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Verbs:</strong> Tense consistency timeline.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 11</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 12 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 12</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Grace and Lost Connections</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"What's Left Unsaid"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"Early Autumn"</strong><br>by Langston Hughes</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Minimalism:</strong> (Restraint)</li>
-                        <li><strong>Unspoken Emotion:</strong> (Subtext)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze how brevity and silence convey emotional weight.</li>
-                    <li>Students will evaluate the theme of lost opportunity and grace.</li>
-                    <li>Students will structure paragraphs with clear topic sentences.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Reunion check-in visual. "How do you greet the past?"</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Harlem Renaissance. <strong>Concept:</strong> The "Grace Moment" & Silence.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Closure circles. "When is letting go a form of grace?"</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Unsent Letters, Memory Box, Movement expression.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Structure:</strong> Paragraph building (Foundation/Walls/Roof).</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 12</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 13 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 13</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Too Much of a Good Thing</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"Satire & Consequence"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"Christmas Every Day"</strong><br>by William Dean Howells</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Satire:</strong> (Humor with a point)</li>
-                        <li><strong>Cause-Effect:</strong> (Escalation)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will identify satirical elements used to critique excess.</li>
-                    <li>Students will map cause-and-effect chains in narrative escalation.</li>
-                    <li>Students will construct complex sentences using connectors (because, since).</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"Favorite day every day?" Wish voting.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Gentle Satire. Cause-Effect Chain (Wish → Excess → Disaster).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>The Snowball Effect. Moderation/Balance in life.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Modern Wish Lab, Reverse Engineering problems, Balance Art.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Syntax:</strong> Complex sentence connectors.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 13</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 14 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 14</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Science Fiction and War</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"The Necessary Lie?"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Defenders"</strong><br>by Philip K. Dick</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Dystopia:</strong> (Underground/War)</li>
-                        <li><strong>Unreliable Narrative:</strong> (Deception)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze dystopian elements and the theme of deception.</li>
-                    <li>Students will debate the ethics of "noble lies" in governance.</li>
-                    <li>Students will distinguish between Active and Passive voice.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Trust scale visual. "Who can we trust in war?"</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Cold War paranoia. <strong>Concept:</strong> Dystopia & Layers of Deception.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>"Who are the real defenders?" Peace through lies debate.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Truth Layers analysis, Robot Dilemma, Propaganda creation.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Voice:</strong> Active vs. Passive (Hiding responsibility).</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 14</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 15 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 15</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Hard Work and Success</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"Character Over Circumstance"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"Up From Slavery"</strong> (Excerpt)<br>by Booker T. Washington</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Autobiography:</strong> (First-person/Truth)</li>
-                        <li><strong>Theme:</strong> Dignity in labor</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze autobiographical techniques used to inspire.</li>
-                    <li>Students will evaluate the concept of dignity through labor.</li>
-                    <li>Students will draft strong topic sentences for argumentative writing.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Success categories visual. "What does success mean?"</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Tuskegee/Post-Civil War. <strong>Concept:</strong> Autobiography & Concrete Examples.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>The "Cleaning Test." Character vs. Intelligence.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Goal Ladders, Work with Dignity practice, Peer Interviews.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Writing:</strong> Topic Sentence formulas.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 15</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 16 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 16</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Migration and Family</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Breaking the Cycle"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Circuit"</strong><br>by Francisco Jiménez</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Circular Structure:</strong> (No resolution)</li>
-                        <li><strong>Metaphor:</strong> (The Circuit/Trap)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze how circular narrative structure reinforces theme.</li>
-                    <li>Students will empathize with the migrant experience through sensory mapping.</li>
-                    <li>Students will use prepositions of movement to describe journeys.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Movement scale check-in. "How many times have you moved?"</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Circular Structure (Ending = Beginning). Life Cycles theme.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>The trap of the circuit. Hidden stories. Community connection.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Packing Simulation, Bilingual Language Journey, Community Maps.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Prepositions:</strong> Movement words (Through, Across, Between).</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 16</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 17 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 17</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Cultural Identity and Food</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"Humor as a Bridge"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The All-American Slurp"</strong><br>by Lensey Namioka</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Humor:</strong> (Relatability)</li>
-                        <li><strong>Cultural Contrast:</strong> (Etiquette)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze how humor is used to bridge cultural divides.</li>
-                    <li>Students will compare and contrast cultural norms regarding dining.</li>
-                    <li>Students will use transition words to connect contrasting ideas.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"Most embarrassing meal?" Cultural food comfort zones.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Cultural Humor & Contrast (Slurping vs. Silence). Adaptation stages.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Food & Identity. Code-switching. "Embarrassment as growth."</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Etiquette Exchange, Funny Stories, Adaptation Timeline.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Transitions:</strong> However, Meanwhile, Therefore.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 17</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 18 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 18</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Love and Transformation</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Becoming Real"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Velveteen Rabbit"</strong><br>by Margery Williams</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Allegory:</strong> (Surface vs. Deep meaning)</li>
-                        <li><strong>Theme:</strong> Authenticity</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will interpret the allegory of "becoming real" as emotional maturity.</li>
-                    <li>Students will discuss the relationship between suffering/love and authenticity.</li>
-                    <li>Students will analyze metaphorical language.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"What makes something real?" Reality vs. Imagination.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Allegory (Toy story = Human truth). Transformation Arc.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Skin Horse wisdom. Love's cost (shabbiness) vs. reward (reality).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Real vs. Fake, Transformation timelines, Wisdom quotes.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Metaphors:</strong> Abstract concepts made concrete.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 18</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 19 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 19</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Dreams and Justice</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"The Rhetoric of Hope"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"I Have a Dream"</strong><br>by Dr. Martin Luther King Jr.</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Anaphora:</strong> (Repetition for effect)</li>
-                        <li><strong>Allusion:</strong> (Historical/Biblical)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze the use of anaphora to build rhetorical momentum.</li>
-                    <li>Students will identify historical and biblical allusions.</li>
-                    <li>Students will apply parallel structure in their own writing.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"Dream for America?" Justice scale visual.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Anaphora ("I have a dream"). Allusion (Declaration/Bible).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Video viewing analysis. Dreams then vs. now. Progress evaluation.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Speech Writing, Allusion Hunt, Justice Timeline.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Structure:</strong> Parallelism (Balanced sentences).</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 19</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 20 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 20</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Humor and Family Chaos</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"The Domino Effect"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Night the Bed Fell"</strong><br>by James Thurber</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Hyperbole:</strong> (Exaggeration)</li>
-                        <li><strong>Cause-Effect:</strong> (Chain reaction)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze how hyperbole creates humor.</li>
-                    <li>Students will map a chain-reaction plot structure.</li>
-                    <li>Students will construct compound-complex sentences.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"Funniest misunderstanding?" Chaos scale rating.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Hyperbole. Situational Comedy. The Domino Effect.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Misunderstanding flowchart. Character perspectives.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Chaos Chronicles, Exaggeration practice, Comic Timing.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Syntax:</strong> Compound-Complex sentences.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 20</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 21 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 21</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Survival and Nature</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"Nature as Antagonist"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"To Build a Fire"</strong><br>by Jack London</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Naturalism:</strong> (Indifference of Nature)</li>
-                        <li><strong>Setting:</strong> (As Character)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will evaluate the role of setting as an antagonist.</li>
-                    <li>Students will analyze the philosophy of Naturalism (determinism).</li>
-                    <li>Students will use precise, technical language in writing.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Temp extremes visual. Survival instinct check-in.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Klondike/London. <strong>Concept:</strong> Naturalism (Nature doesn't care).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Fatal mistakes analysis. Instinct (Dog) vs. Judgment (Man).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Survival Planning, Setting descriptions, Temp timeline.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Vocabulary:</strong> Precision vs. Generalization.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 21</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 22 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 22</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Pride and Loss</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"The Color of Grief"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Scarlet Ibis"</strong><br>by James Hurst</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Symbolism:</strong> (Ibis/Red/Storm)</li>
-                        <li><strong>Foreshadowing:</strong> (Coffin/Death)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze parallel symbolism between character and nature.</li>
-                    <li>Students will discuss the conflict between love and pride.</li>
-                    <li>Students will use sensory imagery to create mood.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>Scarlet Ibis image. "When has pride hurt?" Brotherhood check-in.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Parallel Symbolism (Bird = Boy). Foreshadowing clues.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Pride vs. Love. "Am I my brother's keeper?" Preventable tragedy.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Symbol creation, Foreshadowing hunt, Brother's Journal.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Imagery:</strong> Color symbolism & Sensory details.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 22</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 23 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 23</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Technology and Isolation</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Future Imperfect"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Fun They Had"</strong><br>by Isaac Asimov</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Irony:</strong> (Title significance)</li>
-                        <li><strong>Sci-Fi Commentary:</strong> (Future reflects Present)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze science fiction as a commentary on current society.</li>
-                    <li>Students will evaluate the importance of human connection in learning.</li>
-                    <li>Students will use future tense verbs consistently.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"School in 2157?" Prediction brainstorm.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Concept:</strong> Sci-Fi as Warning. Irony of "Fun." Human needs constant.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>What is lost with tech? The mechanical teacher vs. Real school.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Future School Design, Time Capsules, Connection chart.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Verbs:</strong> Future tense consistency (Will vs. Going to).</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 23</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 24 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 24</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">American Poetry</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"The Democratic Voice"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>Walt Whitman Focus</strong><br>(plus Bradstreet & Poe)</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Free Verse:</strong> (Breaking tradition)</li>
-                        <li><strong>Voice:</strong> (The "I" as everyone)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will contrast Free Verse with traditional metric poetry.</li>
-                    <li>Students will analyze the evolution of the "American Voice."</li>
-                    <li>Students will use line breaks to create rhythm and meaning.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"What makes poetry American?" Comfort scale.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Bradstreet → Poe → Whitman. <strong>Concept:</strong> Free Verse & Democracy.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>"Song of Myself" analysis. Personal vs. Universal voice.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Free Verse creation, Poetry Timeline, Voice comparison.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Structure:</strong> Line Breaks (Breath & Pause).</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 24</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 25 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 25</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Individual vs. Society</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"The Crime of Being Alone"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Focus Text</h3>
-                <p><strong>"The Pedestrian"</strong><br>by Ray Bradbury</p>
-                <div class="lit-device-box">
-                    <h3 style="color: var(--primary-blue); font-size: 0.9rem;">LITERARY DEVICES</h3>
-                    <ul style="padding-left: 1rem; margin: 0;">
-                        <li><strong>Dystopia:</strong> (Conformity enforcement)</li>
-                        <li><strong>Symbolism:</strong> (Walking = Humanity)</li>
-                    </ul>
-                </div>
-                <h3>Learning Objectives</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Students will analyze the symbolism of "walking" as an act of resistance.</li>
-                    <li>Students will evaluate the cost of technology on community interaction.</li>
-                    <li>Students will use semicolons and colons to connect ideas.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Lesson Flow</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">Opening</span><span>"Last time you walked?" Freedom audit.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Lecture</span><span><strong>Context:</strong> Bradbury's TV fears. <strong>Concept:</strong> Dystopia (Empty streets).</span></li>
-                        <li class="timeline-item"><span class="time-badge">Discussion</span><span>Courage spectrum. Technology freedom audit. Resistance methods.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Activity</span><span><strong>Stations:</strong> Modern Mead's Journal, Freedom Manifesto, Walk documentation.</span></li>
-                        <li class="timeline-item"><span class="time-badge">Grammar</span><span><strong>Punctuation:</strong> Semicolons & Colons.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 25</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 26 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 26</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Course Reflection & Presentations (1)</span>
-            </div>
-            <div style="font-style: italic; opacity: 0.9;">"Year in Review"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Presentation Focus</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Student Choice: Favorite work from year.</li>
-                    <li>Analysis: 2+ Literary Devices.</li>
-                    <li>Connection: Personal relevance.</li>
-                    <li>Visual: Required element.</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Class Structure</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">10 min</span><span>Opening & Year Review.</span></li>
-                        <li class="timeline-item"><span class="time-badge">30 min</span><span><strong>Student Presentations:</strong> 6 students @ 5 min each.</span></li>
-                        <li class="timeline-item"><span class="time-badge">5 min</span><span>Peer Feedback.</span></li>
-                        <li class="timeline-item"><span class="time-badge">5 min</span><span>Reflection: Growth Acknowledgment.</span></li>
-                    </ul>
-                </div>
-                <div class="udl-highlight">
-                    <span class="udl-badge">Activity</span>
-                    Literary Device Review Game & Favorite Story Voting.
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 26</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- WEEK 27 -->
-    <div class="curriculum-page">
-        <div class="week-header">
-            <div>
-                <span class="week-number">WEEK 27</span>
-                <span style="font-size: 1.2rem; font-weight: bold; margin-left: 10px;">Final Presentations & Celebration</span>
-            </div>
-             <div style="font-style: italic; opacity: 0.9;">"Closing the Circle"</div>
-        </div>
-        <div class="grid-layout">
-            <div>
-                <h3>Portfolio Components</h3>
-                <ul style="font-size: 0.9rem; padding-left: 1.2rem;">
-                    <li>Best Literary Analysis Essay</li>
-                    <li>Favorite Creative Piece</li>
-                    <li>Most Improved Work</li>
-                    <li>Literary Device Reference Guide</li>
-                    <li>Reflection Letter on Growth</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Class Structure</h3>
-                <div class="card-box">
-                    <ul class="timeline-list">
-                        <li class="timeline-item"><span class="time-badge">5 min</span><span>Opening Celebration.</span></li>
-                        <li class="timeline-item"><span class="time-badge">35 min</span><span><strong>Final Presentations:</strong> 7 students @ 5 min each.</span></li>
-                        <li class="timeline-item"><span class="time-badge">5 min</span><span>Awards & Recognition (Inclusive).</span></li>
-                        <li class="timeline-item"><span class="time-badge">5 min</span><span>Course Closure: Letters to next class.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="page-footer"><span>Week 27</span><span>American Literature Portfolio</span></div>
-    </div>
-
-    <!-- ACCOMMODATIONS PAGE -->
-    <div class="curriculum-page">
-        <h2>Differentiation & Accommodations</h2>
-        <p>These strategies are integrated throughout the 27-week curriculum to ensure equitable access for all learners.</p>
-
-        <div class="grid-layout" style="margin-top: 2rem;">
-            <div>
-                <h3>Assessment Methods</h3>
-                <div class="card-box">
-                    <ul style="padding-left: 1.2rem; font-size: 0.9rem;">
+        <div class="week-body">
+            <p style="margin-bottom: 2rem; color: var(--text-muted);">This curriculum integrates rigorous literary analysis with accessible, high-engagement strategies. The following Universal Design for Learning (UDL) supports are built into every week to ensure equitable access.</p>
+            
+            <div class="grid-2-col">
+                <div class="card">
+                    <div class="section-header"><i class="fa-solid fa-users-viewfinder"></i> Assessment Methods</div>
+                    <ul>
                         <li>Traditional Writing</li>
-                        <li>Visual Representations</li>
+                        <li>Visual Representations (Graphic Organizers)</li>
                         <li>Verbal Explanations</li>
                         <li>Creative Interpretations</li>
                         <li>Physical Demonstrations</li>
                     </ul>
                 </div>
-            </div>
-
-            <div>
-                <h3>Support Structures</h3>
-                <div class="card-box">
-                    <ul style="padding-left: 1.2rem; font-size: 0.9rem;">
+                <div class="card">
+                    <div class="section-header"><i class="fa-solid fa-hand-holding-heart"></i> Support Structures</div>
+                    <ul>
                         <li>Sentence starters always available</li>
                         <li>Visual anchor charts displayed</li>
                         <li>Partner support options</li>
                         <li>Extended time as needed</li>
                         <li>Choice in expression format</li>
-                        <li>Movement breaks built-in</li>
                     </ul>
                 </div>
             </div>
-        </div>
 
-        <div style="margin-top: 2rem; padding: 20px; background: #eef2f7; border-radius: 5px;">
-            <h3 style="color: var(--primary-blue);">Technology Optimization (43" Screen)</h3>
-            <p style="font-size: 0.9rem;">Use large, clear fonts (24pt+), high contrast visuals, and limit text density per slide. Utilize timer displays for all station activities to support executive function.</p>
+            <div class="card" style="background: #F8FAFC;">
+                <div class="section-header"><i class="fa-solid fa-desktop"></i> Technology & Classroom Environment</div>
+                <div class="grid-2-col" style="margin-bottom: 0; gap: 1rem;">
+                    <div>
+                        <strong>43" Screen Optimization</strong>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin:0;">Use large, clear fonts (24pt+), high contrast visuals, and limit text density per slide. Include images/diagrams for all concepts.</p>
+                    </div>
+                    <div>
+                        <strong>Environment</strong>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin:0;">Movement breaks built in. Quiet processing spaces available. Timer displays for all station activities.</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="page-footer">
-            <span>Accommodations Summary</span>
-            <span>American Literature Portfolio</span>
+    </div>
+
+    <!-- WEEK 1 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Perseverance and Encouragement</h2>
+                <div class="week-tagline">"Finding Strength in Rhyme"</div>
+            </div>
+            <div class="week-badge">WEEK 1</div>
         </div>
+        <div class="week-body">
+            
+            <!-- Top Row: Context & Devices -->
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"Don't Quit" by Edgar A. Guest</h3>
+                    <ul>
+                        <li>Analyze the effect of AABB rhyme scheme on poem structure.</li>
+                        <li>Identify and interpret central metaphors regarding perseverance.</li>
+                        <li>Apply grammar rules to identify fragments vs. complete sentences.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Metaphor:</strong> Life as a journey ("twists and turns").</div>
+                    <div style="margin-top: 5px;"><strong>Imagery:</strong> Visualizing hope ("silver tint of clouds").</div>
+                    <div style="margin-top: 5px;"><strong>Rhyme Scheme:</strong> AABB (predictable, memorable rhythm).</div>
+                </div>
+            </div>
+
+            <!-- Lesson Flow -->
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Emotion Check-in: "Don't Quit" image association & visual scale.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Author Context (People's Poet). Concept: Metaphor & Rhyme. Guided Reading.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>"How does the rhythm affect the message?" Personal connection wheel.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>See below.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Fragments vs. Sentences (Car analogy). Prep options.</span></td></tr>
+                </table>
+            </div>
+
+            <!-- Stations & Tips -->
+            <div class="grid-2-col" style="margin-top: 1.5rem;">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-shapes"></i> Classwork Stations</div>
+                    <div class="station-grid">
+                        <div class="station-card"><div class="station-icon"><i class="fa-solid fa-pen"></i></div><div><strong>Rhyme</strong><br>Mark AABB pattern.</div></div>
+                        <div class="station-card"><div class="station-icon"><i class="fa-solid fa-pencil"></i></div><div><strong>Metaphor</strong><br>Write 4-line stanza.</div></div>
+                        <div class="station-card"><div class="station-icon"><i class="fa-solid fa-music"></i></div><div><strong>Rhythm</strong><br>Clapping meter.</div></div>
+                        <div class="station-card"><div class="station-icon"><i class="fa-solid fa-magnifying-glass"></i></div><div><strong>Analysis</strong><br>Label imagery.</div></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-list-check"></i> Homework Options (Choose 2)</div>
+                    <ul>
+                        <li>Write AABB poem about perseverance.</li>
+                        <li>Analyze rhyme scheme in 3 other poems.</li>
+                        <li>Creative story using metaphors.</li>
+                        <li>Illustrated poem with rhyme marked.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Callouts -->
+            <div class="tip-box tip-udl">
+                <div class="tip-icon"><i class="fa-solid fa-universal-access"></i></div>
+                <div><strong>UDL Strategy:</strong> Color-code rhyming lines for visual support. Use clapping to demonstrate meter/rhythm kinesthetically.</div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- WEEK 2 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Hope and Sacrificial Love</h2>
+                <div class="week-tagline">"Symbolism in Sacrifice"</div>
+            </div>
+            <div class="week-badge">WEEK 2</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Last Leaf" by O. Henry</h3>
+                    <ul>
+                        <li>Evaluate how specific objects function as symbols.</li>
+                        <li>Analyze situational irony in the story's resolution.</li>
+                        <li>Correctly use comma rules in lists and introductions.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Symbolism:</strong> Leaf = Hope/Life.</div>
+                    <div style="margin-top: 5px;"><strong>Situational Irony:</strong> Saving a life by losing one (Behrman's masterpiece).</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Falling leaves visual. Hope scale check-in (1-10).</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>O. Henry Context. Defining Symbolism vs. Irony. Key Scenes audio.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>"What does the leaf represent?" Character motivation web.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Symbol Hunt, Irony Journal, Leaf Art.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Commas: Lists & FANBOYS (Traffic light system).</span></td></tr>
+                </table>
+            </div>
+
+            <div class="tip-box tip-udl">
+                <div class="tip-icon"><i class="fa-solid fa-universal-access"></i></div>
+                <div><strong>UDL Strategy:</strong> Use an emoji progression (😊→😢) to visually map situational irony.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 3 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Compassion and Empathy</h2>
+                <div class="week-tagline">"Character Through Action"</div>
+            </div>
+            <div class="week-badge">WEEK 3</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"Stray" by Cynthia Rylant</h3>
+                    <ul>
+                        <li>Distinguish between direct and indirect characterization (S.T.E.A.L.).</li>
+                        <li>Analyze how setting impacts the mood of a narrative.</li>
+                        <li>Demonstrate subject-verb agreement.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Characterization:</strong> S.T.E.A.L. (Speech, Thoughts, Effects, Actions, Looks).</div>
+                    <div style="margin-top: 5px;"><strong>Mood:</strong> Weather as emotion (Snow = Isolation).</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Puppy image. "How do we show care?" Compassion check-in.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Direct vs. Indirect Characterization. Mood through weather.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Family perspectives chart. "Why does Dad change his mind?"</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Character Interviews, Mood Collages, Dialogue Writing.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Subject-Verb Agreement (Movement practice).</span></td></tr>
+                </table>
+            </div>
+
+            <div class="tip-box tip-teacher">
+                <div class="tip-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+                <div><strong>Teacher Tip:</strong> Use sound effects (wind/silence) during reading to establish mood auditorily.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 4 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Perseverance and Compassion</h2>
+                <div class="week-tagline">"Life as a Journey"</div>
+            </div>
+            <div class="week-badge">WEEK 4</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"A Worn Path" by Eudora Welty</h3>
+                    <ul>
+                        <li>Interpret the physical journey as an extended metaphor for life challenges.</li>
+                        <li>Analyze the use of dialect to establish character authenticity.</li>
+                        <li>Apply capitalization rules correctly.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Extended Metaphor:</strong> Journey = Life. Obstacles = Struggles.</div>
+                    <div style="margin-top: 5px;"><strong>Dialect:</strong> Voice and authenticity.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Winding path visual. "What path are you on?" Check-in.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Extended Metaphor concept. Dialect & Respect.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Obstacle analysis chart. "Why make the journey?"</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Journey Maps, Helper Design, Modern Parallels.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Capitalization Scavenger Hunt.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 5 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Family Expectations & Identity</h2>
+                <div class="week-tagline">"Two Worlds, One Self"</div>
+            </div>
+            <div class="week-badge">WEEK 5</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"Two Kinds" by Amy Tan</h3>
+                    <ul>
+                        <li>Categorize conflicts as internal or external.</li>
+                        <li>Discuss the impact of cultural expectations on identity.</li>
+                        <li>Use pronouns correctly (subject, object, possessive).</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Conflict Types:</strong> Person vs. Person, Self, Society.</div>
+                    <div style="margin-top: 5px;"><strong>Theme:</strong> Identity & Expectation.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Identity Pie Chart. "Who decides who you are?"</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Immigrant experience context. 3 Types of Conflict.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Expectations balance scale. Identity web creation.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Role-play scenarios, Self-collage, Music & Identity.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Pronoun antecedent clarity drills.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 6 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Heritage and Respect</h2>
+                <div class="week-tagline">"Use vs. Preserve"</div>
+            </div>
+            <div class="week-badge">WEEK 6</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"Everyday Use" by Alice Walker</h3>
+                    <ul>
+                        <li>Debate the symbolic meaning of heritage objects.</li>
+                        <li>Analyze how Point of View shapes understanding (Reliability).</li>
+                        <li>Use apostrophes correctly for possession.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Symbolism:</strong> The Quilt (Heritage).</div>
+                    <div style="margin-top: 5px;"><strong>Point of View:</strong> Mama as narrator (Bias).</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Quilt image. "Should treasures be used?" Heritage check-in.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Symbolism (Quilt as history). POV analysis.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>"Who deserves the quilt?" Living tradition vs. Museum piece.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Quilt Square Design, POV Debate, Storytelling.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Apostrophes: Singular vs. Plural Possessive.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 7 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Tradition and Wisdom</h2>
+                <div class="week-tagline">"Passing the Torch"</div>
+            </div>
+            <div class="week-badge">WEEK 7</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Medicine Bag" by Virginia Sneve</h3>
+                    <ul>
+                        <li>Identify foreshadowing techniques used to signal plot developments.</li>
+                        <li>Explore the tension between cultural tradition and modern life.</li>
+                        <li>Distinguish between adjectives and adverbs.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Foreshadowing:</strong> Hints of future (Grandpa's arrival/state).</div>
+                    <div style="margin-top: 5px;"><strong>Theme:</strong> Tradition vs. Modernity.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"Wisdom Keepers" circle. Tradition check-in.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Rosebud Sioux context. Foreshadowing concept.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Martin's journey. Tradition vs. Embarrassment.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Medicine Bag design, Interview planning.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Adjective vs. Adverb sort.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 8 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Miscommunication & Compassion</h2>
+                <div class="week-tagline">"Reading Between the Lines"</div>
+            </div>
+            <div class="week-badge">WEEK 8</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"A Day's Wait" by Ernest Hemingway</h3>
+                    <ul>
+                        <li>Infer subtext and character emotion from minimalist dialogue.</li>
+                        <li>Analyze how miscommunication drives the narrative arc.</li>
+                        <li>Identify and correct run-on sentences.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Minimalism:</strong> "Iceberg Theory" (Less is more).</div>
+                    <div style="margin-top: 5px;"><strong>Subtext:</strong> Unspoken meaning.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Fahrenheit vs. Celsius visual. Misunderstanding check-in.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Minimalism concept. Subtext (The boy's internal fear).</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Miscommunication map. "Where could this have been fixed?"</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Clarification practice, Emotion ID, Comfort strategies.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Run-ons: Sentence stop signs & fixes.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 9 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Individuality vs. Conformity</h2>
+                <div class="week-tagline">"The Masks We Wear"</div>
+            </div>
+            <div class="week-badge">WEEK 9</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"Seventh Grade" by Gary Soto</h3>
+                    <ul>
+                        <li>Analyze how internal monologue reveals character motivation.</li>
+                        <li>Identify moments of dramatic irony and their effect.</li>
+                        <li>Use quotation marks correctly in dialogue.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Internal Monologue:</strong> Private thoughts vs. Actions.</div>
+                    <div style="margin-top: 5px;"><strong>Dramatic Irony:</strong> Audience knows truth (French class).</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"When are you most yourself?" Authenticity check-in.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Internal Monologue vs. Dramatic Irony. French class scene focus.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>The "Mask" chart. Mr. Bueller's choice: Kindness or Truth?</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Authenticity card sort, "Cringe" meter, Rewrite scene.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Dialogue: Quotation mark rules & "Air Quotes".</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 10 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Imagination and Reality</h2>
+                <div class="week-tagline">"The Great Escape"</div>
+            </div>
+            <div class="week-badge">WEEK 10</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Secret Life of Walter Mitty" by James Thurber</h3>
+                    <ul>
+                        <li>Contrast internal fantasy world with external reality.</li>
+                        <li>Evaluate the role of escapism as a coping mechanism.</li>
+                        <li>Distinguish between homophones (There/Their/They're).</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Contrast:</strong> Mundane vs. Heroic.</div>
+                    <div style="margin-top: 5px;"><strong>Theme:</strong> Escapism.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"Where does your mind wander?" Daydream categories.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Contrast (Henpecked vs. Commander). Thurber's humor.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Why do we dream? Healthy vs. Unhealthy escapism balance.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Dream Journal, Sound Triggers, Reality Improvement.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Homophones: Visual hand signals.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 11 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>American Humor and Dreams</h2>
+                <div class="week-tagline">"The Tall Tale"</div>
+            </div>
+            <div class="week-badge">WEEK 11</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Celebrated Jumping Frog..." by Mark Twain</h3>
+                    <ul>
+                        <li>Deconstruct the structure of a frame narrative.</li>
+                        <li>Identify elements of the "Tall Tale" genre (exaggeration).</li>
+                        <li>Maintain verb tense consistency in narrative writing.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Frame Narrative:</strong> Story within a story.</div>
+                    <div style="margin-top: 5px;"><strong>Tall Tale:</strong> Hyperbole & Dialect.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"Ridiculous competitions." Betting culture check-in.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Gold Rush/Twain. Frame Narrative structure.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>American Dream vs. Delusion. The "Con Artist" dynamic.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Modern Tall Tales, Frog Jump comp, Dialect translation.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Verbs: Tense consistency timeline.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 12 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Grace and Lost Connections</h2>
+                <div class="week-tagline">"What's Left Unsaid"</div>
+            </div>
+            <div class="week-badge">WEEK 12</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"Early Autumn" by Langston Hughes</h3>
+                    <ul>
+                        <li>Analyze how brevity and silence convey emotional weight.</li>
+                        <li>Evaluate the theme of lost opportunity and grace.</li>
+                        <li>Structure paragraphs with clear topic sentences.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Minimalism:</strong> Restraint.</div>
+                    <div style="margin-top: 5px;"><strong>Unspoken Emotion:</strong> Subtext.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Reunion check-in. "How do you greet the past?"</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Harlem Renaissance. The "Grace Moment" & Silence.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Closure circles. "When is letting go a form of grace?"</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Unsent Letters, Memory Box, Movement expression.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Paragraph building (Foundation/Walls/Roof).</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 13 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Too Much of a Good Thing</h2>
+                <div class="week-tagline">"Satire & Consequence"</div>
+            </div>
+            <div class="week-badge">WEEK 13</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"Christmas Every Day" by William Dean Howells</h3>
+                    <ul>
+                        <li>Identify satirical elements used to critique excess.</li>
+                        <li>Map cause-and-effect chains in narrative escalation.</li>
+                        <li>Construct complex sentences using connectors.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Satire:</strong> Humor with a point.</div>
+                    <div style="margin-top: 5px;"><strong>Cause-Effect:</strong> Escalation.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"Favorite day every day?" Wish voting.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Gentle Satire. Cause-Effect Chain (Wish → Disaster).</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>The Snowball Effect. Moderation/Balance in life.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Modern Wish Lab, Reverse Engineering problems.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Complex sentence connectors (Because, Since).</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 14 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Science Fiction and War</h2>
+                <div class="week-tagline">"The Necessary Lie?"</div>
+            </div>
+            <div class="week-badge">WEEK 14</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Defenders" by Philip K. Dick</h3>
+                    <ul>
+                        <li>Analyze dystopian elements and the theme of deception.</li>
+                        <li>Debate the ethics of "noble lies" in governance.</li>
+                        <li>Distinguish between Active and Passive voice.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Dystopia:</strong> Underground/War.</div>
+                    <div style="margin-top: 5px;"><strong>Unreliable Narrative:</strong> Layers of Deception.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Trust scale visual. "Who can we trust in war?"</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Cold War paranoia. Dystopia. Deception layers.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>"Who are the real defenders?" Peace through lies debate.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Truth Layers analysis, Robot Dilemma, Propaganda.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Voice: Active vs. Passive (Hiding responsibility).</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 15 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Hard Work and Success</h2>
+                <div class="week-tagline">"Character Over Circumstance"</div>
+            </div>
+            <div class="week-badge">WEEK 15</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"Up From Slavery" by Booker T. Washington</h3>
+                    <ul>
+                        <li>Analyze autobiographical techniques used to inspire.</li>
+                        <li>Evaluate the concept of dignity through labor.</li>
+                        <li>Draft strong topic sentences for argumentative writing.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Autobiography:</strong> First-person truth.</div>
+                    <div style="margin-top: 5px;"><strong>Theme:</strong> Dignity in labor.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Success categories visual. "What does success mean?"</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Tuskegee context. Concrete examples.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>The "Cleaning Test." Character vs. Intelligence.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Goal Ladders, Work with Dignity, Peer Interviews.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Writing: Topic Sentence formulas.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 16 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Migration and Family</h2>
+                <div class="week-tagline">"Breaking the Cycle"</div>
+            </div>
+            <div class="week-badge">WEEK 16</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Circuit" by Francisco Jiménez</h3>
+                    <ul>
+                        <li>Analyze how circular narrative structure reinforces theme.</li>
+                        <li>Empathize with the migrant experience through sensory mapping.</li>
+                        <li>Use prepositions of movement to describe journeys.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Circular Structure:</strong> No resolution.</div>
+                    <div style="margin-top: 5px;"><strong>Metaphor:</strong> The Circuit/Trap.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Movement scale. "How many times have you moved?"</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Circular Structure. Life Cycles theme.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>The trap of the circuit. Hidden stories. Community connection.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Packing Simulation, Bilingual Journey, Community Maps.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Prepositions of Movement (Through, Across).</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 17 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Cultural Identity and Food</h2>
+                <div class="week-tagline">"Humor as a Bridge"</div>
+            </div>
+            <div class="week-badge">WEEK 17</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The All-American Slurp" by Lensey Namioka</h3>
+                    <ul>
+                        <li>Analyze how humor is used to bridge cultural divides.</li>
+                        <li>Compare and contrast cultural norms regarding dining.</li>
+                        <li>Use transition words to connect contrasting ideas.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Humor:</strong> Relatability.</div>
+                    <div style="margin-top: 5px;"><strong>Cultural Contrast:</strong> Etiquette.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"Most embarrassing meal?" Cultural food comfort zones.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Cultural Humor & Contrast. Adaptation stages.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Food & Identity. Code-switching. "Embarrassment as growth."</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Etiquette Exchange, Funny Stories, Adaptation Timeline.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Transitions: However, Meanwhile, Therefore.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 18 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Love and Transformation</h2>
+                <div class="week-tagline">"Becoming Real"</div>
+            </div>
+            <div class="week-badge">WEEK 18</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Velveteen Rabbit" by Margery Williams</h3>
+                    <ul>
+                        <li>Interpret the allegory of "becoming real" as emotional maturity.</li>
+                        <li>Discuss the relationship between suffering/love and authenticity.</li>
+                        <li>Analyze metaphorical language.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Allegory:</strong> Surface vs. Deep meaning.</div>
+                    <div style="margin-top: 5px;"><strong>Theme:</strong> Authenticity.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"What makes something real?" Reality vs. Imagination.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Allegory (Toy story = Human truth). Transformation Arc.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Skin Horse wisdom. Love's cost (shabbiness) vs. reward.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Real vs. Fake, Transformation timelines, Wisdom quotes.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Metaphors: Abstract concepts made concrete.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 19 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Dreams and Justice</h2>
+                <div class="week-tagline">"The Rhetoric of Hope"</div>
+            </div>
+            <div class="week-badge">WEEK 19</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"I Have a Dream" by Dr. Martin Luther King Jr.</h3>
+                    <ul>
+                        <li>Analyze the use of anaphora to build rhetorical momentum.</li>
+                        <li>Identify historical and biblical allusions.</li>
+                        <li>Apply parallel structure in writing.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Anaphora:</strong> Repetition for effect.</div>
+                    <div style="margin-top: 5px;"><strong>Allusion:</strong> Historical/Biblical references.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"Dream for America?" Justice scale visual.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Anaphora ("I have a dream"). Allusion (Declaration/Bible).</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Video viewing analysis. Dreams then vs. now. Progress.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Speech Writing, Allusion Hunt, Justice Timeline.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Parallel Structure (Balanced sentences).</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 20 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Humor and Family Chaos</h2>
+                <div class="week-tagline">"The Domino Effect"</div>
+            </div>
+            <div class="week-badge">WEEK 20</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Night the Bed Fell" by James Thurber</h3>
+                    <ul>
+                        <li>Analyze how hyperbole creates humor.</li>
+                        <li>Map a chain-reaction plot structure.</li>
+                        <li>Construct compound-complex sentences.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Hyperbole:</strong> Exaggeration.</div>
+                    <div style="margin-top: 5px;"><strong>Cause-Effect:</strong> Chain reaction (Dominoes).</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"Funniest misunderstanding?" Chaos scale rating.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Situational Comedy. The Domino Effect.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Misunderstanding flowchart. Character perspectives.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Chaos Chronicles, Exaggeration practice, Comic Timing.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Compound-Complex Sentences.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 21 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Survival and Nature</h2>
+                <div class="week-tagline">"Nature as Antagonist"</div>
+            </div>
+            <div class="week-badge">WEEK 21</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"To Build a Fire" by Jack London</h3>
+                    <ul>
+                        <li>Evaluate the role of setting as an antagonist.</li>
+                        <li>Analyze the philosophy of Naturalism (determinism).</li>
+                        <li>Use precise, technical language in writing.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Naturalism:</strong> Indifference of Nature.</div>
+                    <div style="margin-top: 5px;"><strong>Setting:</strong> As Character.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Temp extremes visual. Survival instinct check-in.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Klondike context. Naturalism (Nature doesn't care).</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Fatal mistakes analysis. Instinct (Dog) vs. Judgment (Man).</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Survival Planning, Setting descriptions, Temp timeline.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Vocabulary: Precision vs. Generalization.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 22 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Pride and Loss</h2>
+                <div class="week-tagline">"The Color of Grief"</div>
+            </div>
+            <div class="week-badge">WEEK 22</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Scarlet Ibis" by James Hurst</h3>
+                    <ul>
+                        <li>Analyze parallel symbolism between character and nature.</li>
+                        <li>Discuss the conflict between love and pride.</li>
+                        <li>Use sensory imagery to create mood.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Symbolism:</strong> Ibis/Red/Storm.</div>
+                    <div style="margin-top: 5px;"><strong>Foreshadowing:</strong> Coffin/Death.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>Scarlet Ibis image. "When has pride hurt?" Brotherhood.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Parallel Symbolism (Bird = Boy). Foreshadowing clues.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Pride vs. Love. "Am I my brother's keeper?" Tragedy.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Symbol creation, Foreshadowing hunt, Brother's Journal.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Imagery: Color symbolism & Sensory details.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 23 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Technology and Isolation</h2>
+                <div class="week-tagline">"Future Imperfect"</div>
+            </div>
+            <div class="week-badge">WEEK 23</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Fun They Had" by Isaac Asimov</h3>
+                    <ul>
+                        <li>Analyze science fiction as a commentary on current society.</li>
+                        <li>Evaluate the importance of human connection in learning.</li>
+                        <li>Use future tense verbs consistently.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Irony:</strong> Title significance.</div>
+                    <div style="margin-top: 5px;"><strong>Sci-Fi Commentary:</strong> Future reflects Present.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"School in 2157?" Prediction brainstorm.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Sci-Fi as Warning. Irony of "Fun." Human needs.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>What is lost with tech? Mechanical teacher vs. Real school.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Future School Design, Connection chart, Time Capsules.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Verbs: Future tense (Will vs. Going to).</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 24 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>American Poetry</h2>
+                <div class="week-tagline">"The Democratic Voice"</div>
+            </div>
+            <div class="week-badge">WEEK 24</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">Whitman (plus Bradstreet & Poe)</h3>
+                    <ul>
+                        <li>Contrast Free Verse with traditional metric poetry.</li>
+                        <li>Analyze the evolution of the "American Voice."</li>
+                        <li>Use line breaks to create rhythm and meaning.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Free Verse:</strong> Breaking tradition.</div>
+                    <div style="margin-top: 5px;"><strong>Voice:</strong> The "I" as everyone.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"What makes poetry American?" Comfort scale.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Bradstreet → Poe → Whitman. Free Verse & Democracy.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>"Song of Myself" analysis. Personal vs. Universal voice.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Free Verse creation, Poetry Timeline, Voice comparison.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Structure: Line Breaks (Breath & Pause).</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 25 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Individual vs. Society</h2>
+                <div class="week-tagline">"The Crime of Being Alone"</div>
+            </div>
+            <div class="week-badge">WEEK 25</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-book-open"></i> Focus Text & Objectives</div>
+                    <h3 style="margin: 0 0 10px 0; color: var(--accent-primary);">"The Pedestrian" by Ray Bradbury</h3>
+                    <ul>
+                        <li>Analyze the symbolism of "walking" as an act of resistance.</li>
+                        <li>Evaluate the cost of technology on community interaction.</li>
+                        <li>Use semicolons and colons to connect ideas.</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box">
+                    <div class="lit-device-title"><i class="fa-solid fa-lightbulb"></i> Literary Devices</div>
+                    <div><strong>Dystopia:</strong> Conformity enforcement.</div>
+                    <div style="margin-top: 5px;"><strong>Symbolism:</strong> Walking = Humanity.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Lesson Flow (50 min)</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening Routine</strong><span>"Last time you walked?" Freedom audit.</span></td></tr>
+                    <tr><td class="time-col">15m</td><td class="activity-col"><strong>Slide Presentation</strong><span>Bradbury's TV fears. Dystopia (Empty streets).</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Discussion</strong><span>Courage spectrum. Technology freedom. Resistance.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Classwork Stations</strong><span>Modern Mead's Journal, Freedom Manifesto, Walk doc.</span></td></tr>
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Grammar & Homework</strong><span>Punctuation: Semicolons & Colons.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 26 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Course Reflection & Presentations (Round 1)</h2>
+                <div class="week-tagline">"Year in Review"</div>
+            </div>
+            <div class="week-badge">WEEK 26</div>
+        </div>
+        <div class="week-body">
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-list-check"></i> Presentation Requirements</div>
+                <ul>
+                    <li><strong>Duration:</strong> 5-7 minutes</li>
+                    <li><strong>Content:</strong> Favorite work from year</li>
+                    <li><strong>Analysis:</strong> Identify/analyze 2+ literary devices</li>
+                    <li><strong>Connection:</strong> Personal relevance & Visual element</li>
+                </ul>
+            </div>
+            
+            <div style="margin-top: 1.5rem;">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Class Structure</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">10m</td><td class="activity-col"><strong>Opening</strong><span>Year Review.</span></td></tr>
+                    <tr><td class="time-col">30m</td><td class="activity-col"><strong>Presentations</strong><span>6 students @ 5 min each.</span></td></tr>
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Feedback</strong><span>Peer Feedback.</span></td></tr>
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Reflection</strong><span>Growth Acknowledgment.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- WEEK 27 -->
+    <div class="week-container page-break">
+        <div class="week-header">
+            <div class="week-title-group">
+                <h2>Final Presentations & Celebration</h2>
+                <div class="week-tagline">"Closing the Circle"</div>
+            </div>
+            <div class="week-badge">WEEK 27</div>
+        </div>
+        <div class="week-body">
+            <div class="grid-2-col">
+                <div>
+                    <div class="section-header"><i class="fa-solid fa-star"></i> Celebration Elements</div>
+                    <ul>
+                        <li>Literary awards (everyone receives something)</li>
+                        <li>Time capsule creation</li>
+                        <li>Letter to next year's class</li>
+                        <li>Final circle share</li>
+                    </ul>
+                </div>
+                <div class="lit-device-box" style="background: #F0FDF4; border-left-color: var(--success-green);">
+                    <div class="lit-device-title" style="color: var(--success-green);"><i class="fa-solid fa-briefcase"></i> Portfolio Requirements</div>
+                    <div>Best literary analysis essay</div>
+                    <div>Favorite creative piece</div>
+                    <div>Most improved work</div>
+                    <div>Literary device reference guide</div>
+                    <div>Reflection letter on growth</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="section-header"><i class="fa-solid fa-stopwatch"></i> Class Structure</div>
+                <table class="flow-table">
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Opening</strong><span>Celebration start.</span></td></tr>
+                    <tr><td class="time-col">35m</td><td class="activity-col"><strong>Presentations</strong><span>7 students @ 5 min each.</span></td></tr>
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Awards</strong><span>Recognition (Inclusive).</span></td></tr>
+                    <tr><td class="time-col">5m</td><td class="activity-col"><strong>Closure</strong><span>Letters to next class.</span></td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-bar">
+        <p>&copy; 2025 Instructional Design Portfolio. All Rights Reserved.</p>
     </div>
 
 </div>
