@@ -48,7 +48,24 @@
             body { background: white; padding: 0; }
             .container { box-shadow: none; border: none; width: 100%; }
             .page-break { page-break-before: always; }
-            .no-break { page-break-inside: avoid; }
+            
+            /* CRITICAL FIX: Prevent boxes from splitting across pages */
+            .question-card, 
+            .factor-row, 
+            .worked-example, 
+            .instruction-box, 
+            .challenge-box, 
+            .checklist-box,
+            .no-break { 
+                break-inside: avoid; 
+                page-break-inside: avoid; 
+            }
+
+            /* Ensure H2 headers try to stay with their content */
+            h2, h3 {
+                break-after: avoid;
+                page-break-after: avoid;
+            }
         }
 
         /* --- LAYOUT CONTAINERS --- */
@@ -189,6 +206,8 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            /* Ensure height consistency but allow expansion */
+            min-height: 180px; 
         }
 
         .q-header {
@@ -219,7 +238,8 @@
         .work-area {
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            height: 100px;
+            flex-grow: 1; /* Fill available space */
+            min-height: 80px;
             background: #FDFDFD;
             padding: 10px;
             position: relative;
