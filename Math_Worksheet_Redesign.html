@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 6: Equations, Factors & Multiples</title>
+    
+    <!-- Fonts: Inter for main text, Lexend for high-readability numbers -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons: FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-teal: #0F766E;     /* Dark Teal for text/borders */
+            --accent-teal: #CCFBF1;      /* Light Teal for backgrounds */
+            --border-color: #CBD5E1;     /* Soft Grey */
+            --text-dark: #1E293B;        /* High contrast dark grey */
+            --text-scaffold: #94A3B8;    /* Light grey for scaffolds */
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            background: #F1F5F9; /* Light grey bg for screen, white for print */
+            margin: 0;
+            padding: 20px;
+            font-size: 16px; /* Readable base size */
+        }
+
+        /* --- PRINT SETTINGS --- */
+        @page {
+            size: letter;
+            margin: 0.5in;
+        }
+
+        @media print {
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; border: none; width: 100%; }
+            .page-break { page-break-before: always; }
+            .no-break { page-break-inside: avoid; }
+        }
+
+        /* --- LAYOUT CONTAINERS --- */
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        /* --- HEADER --- */
+        .worksheet-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid var(--primary-teal);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            align-items: flex-end;
+        }
+
+        .header-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .header-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--primary-teal);
+            font-weight: 700;
+        }
+
+        .header-input {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.2rem;
+            border-bottom: 1px dashed var(--border-color);
+            min-width: 150px;
+        }
+
+        /* --- SECTION STYLES --- */
+        h1 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin: 0 0 20px 0;
+        }
+
+        h2 {
+            font-family: 'Lexend', sans-serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            background: var(--primary-teal);
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 30px 0 15px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            font-size: 1rem;
+            color: var(--primary-teal);
+            margin: 15px 0 10px 0;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+        }
+
+        /* --- INSTRUCTION BOXES --- */
+        .instruction-box {
+            background: #F8FAFC;
+            border: 1px solid var(--border-color);
+            border-left: 4px solid var(--primary-teal);
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: start;
+            gap: 10px;
+        }
+
+        .instruction-icon {
+            color: var(--primary-teal);
+            font-size: 1.2rem;
+            margin-top: 2px;
+        }
+
+        /* --- WORKED EXAMPLES --- */
+        .worked-example {
+            background: var(--accent-teal);
+            border: 1px dashed var(--primary-teal);
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 25px;
+        }
+
+        .example-label {
+            font-weight: 700;
+            color: var(--primary-teal);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .example-content {
+            font-family: 'Lexend', sans-serif;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .example-math {
+            font-size: 1.1rem;
+        }
+
+        .example-note {
+            font-size: 0.9rem;
+            color: var(--primary-teal);
+            font-style: italic;
+        }
+
+        /* --- QUESTION GRIDS --- */
+        .grid-2-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .question-card {
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 15px;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .q-num {
+            background: var(--text-dark);
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+        }
+
+        .equation-text {
+            font-size: 1.2rem;
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .work-area {
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            height: 100px;
+            background: #FDFDFD;
+            padding: 10px;
+            position: relative;
+        }
+
+        .scaffold-text {
+            color: var(--text-scaffold);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .answer-line {
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .answer-input {
+            width: 80px;
+            border-bottom: 2px solid var(--text-dark);
+            height: 20px;
+        }
+
+        /* --- PART B SPECIFIC --- */
+        .factor-row {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+        }
+        
+        .factor-scaffold {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .pair-box {
+            border: 1px solid var(--border-color);
+            padding: 5px 10px;
+            border-radius: 4px;
+            color: var(--text-scaffold);
+            background: #f8f9fa;
+        }
+
+        /* --- CHALLENGE --- */
+        .challenge-box {
+            border: 2px solid #F59E0B;
+            background: #FFFBEB;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .challenge-header {
+            color: #B45309;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        /* --- CHECKLIST --- */
+        .checklist-box {
+            margin-top: 40px;
+            background: var(--text-dark);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .custom-check {
+            width: 20px;
+            height: 20px;
+            border: 2px solid white;
+            border-radius: 4px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-scaffold);
+            font-size: 0.8rem;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <div class="worksheet-header">
+            <div class="header-field">
+                <span class="header-label">Name</span>
+                <div class="header-input" style="width: 250px;"></div>
+            </div>
+            <div class="header-field">
+                <span class="header-label">Date</span>
+                <div class="header-input"></div>
+            </div>
+            <div class="header-field">
+                <span class="header-label">Score</span>
+                <div class="header-input"> &nbsp;&nbsp;&nbsp; / 20</div>
+            </div>
+        </div>
+
+        <h1>Week 6: Solving Simple Equations; Factors & Multiples</h1>
+
+        <!-- PART A -->
+        <section>
+            <h2><i class="fa-solid fa-equals"></i> Part A – Solving Equations with Inverse Operations</h2>
+            
+            <div class="instruction-box">
+                <i class="fa-solid fa-circle-info instruction-icon"></i>
+                <div>
+                    <strong>Directions:</strong> Use inverse operations to isolate the variable. Show your thinking in the boxes provided.
+                </div>
+            </div>
+
+            <!-- Worked Example Part A -->
+            <div class="worked-example">
+                <span class="example-label">Worked Example</span>
+                <div class="example-content">
+                    <div class="example-math">
+                        $x + 5 = 12$ <br>
+                        <span style="color: #DC2626;">$- 5 \quad - 5$</span> &nbsp; <small>(Inverse of +5 is -5)</small><br>
+                        $x \quad \quad = 7$
+                    </div>
+                    <div class="example-note">
+                        "To undo adding 5, I subtract 5 from both sides."
+                    </div>
+                </div>
+            </div>
+
+            <!-- Questions 1-12 -->
+            <div class="grid-2-col">
+                
+                <!-- Q1 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">1</span> $x + 9 = 15$</div>
+                    <div class="work-area">
+                        <div class="scaffold-text">Inverse: Subtract 9</div>
+                    </div>
+                    <div class="answer-line">$x =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q2 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">2</span> $n + 13 = 27$</div>
+                    <div class="work-area">
+                        <div class="scaffold-text">Inverse: Subtract 13</div>
+                    </div>
+                    <div class="answer-line">$n =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q3 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">3</span> $22 = y + 8$</div>
+                    <div class="work-area">
+                        <div class="scaffold-text">Inverse: Subtract 8</div>
+                    </div>
+                    <div class="answer-line">$y =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q4 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">4</span> $a - 11 = 16$</div>
+                    <div class="work-area">
+                        <div class="scaffold-text">Inverse: Add 11</div>
+                    </div>
+                    <div class="answer-line">$a =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q5 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">5</span> $m - 14 = 23$</div>
+                    <div class="work-area"></div>
+                    <div class="answer-line">$m =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q6 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">6</span> $35 = p - 9$</div>
+                    <div class="work-area"></div>
+                    <div class="answer-line">$p =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q7 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">7</span> $28 - x = 19$</div>
+                    <div class="work-area">
+                        <div class="scaffold-text">Hint: What number taken from 28 makes 19?</div>
+                    </div>
+                    <div class="answer-line">$x =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q8 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">8</span> $4x = 36$</div>
+                    <div class="work-area">
+                        <div class="scaffold-text">Inverse: Divide by 4</div>
+                    </div>
+                    <div class="answer-line">$x =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q9 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">9</span> $7n = 56$</div>
+                    <div class="work-area">
+                        <div class="scaffold-text">Inverse: Divide by 7</div>
+                    </div>
+                    <div class="answer-line">$n =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q10 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">10</span> $60 = 12y$</div>
+                    <div class="work-area"></div>
+                    <div class="answer-line">$y =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q11 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">11</span> $\frac{x}{5} = 9$</div>
+                    <div class="work-area">
+                        <div class="scaffold-text">Inverse: Multiply by 5</div>
+                    </div>
+                    <div class="answer-line">$x =$ <div class="answer-input"></div></div>
+                </div>
+
+                <!-- Q12 -->
+                <div class="question-card">
+                    <div class="q-header"><span class="q-num">12</span> $\frac{a}{8} = 6$</div>
+                    <div class="work-area"></div>
+                    <div class="answer-line">$a =$ <div class="answer-input"></div></div>
+                </div>
+
+            </div>
+        </section>
+
+        <div class="page-break"></div>
+
+        <!-- PART B -->
+        <section>
+            <h2><i class="fa-solid fa-shapes"></i> Part B – Factors & Multiples</h2>
+
+            <div class="instruction-box">
+                <i class="fa-solid fa-circle-info instruction-icon"></i>
+                <div>
+                    <strong>Directions:</strong> Show your thinking clearly. List pairs for factors and skip-count for multiples.
+                </div>
+            </div>
+
+            <!-- Factors Section -->
+            <h3>Factors</h3>
+            
+            <div class="worked-example">
+                <span class="example-label">Worked Example: Factors of 12</span>
+                <div class="example-content">
+                    <div class="example-math">
+                        1 × 12, 2 × 6, 3 × 4
+                    </div>
+                    <div class="example-note">Factors: 1, 2, 3, 4, 6, 12</div>
+                </div>
+            </div>
+
+            <div class="factor-row">
+                <strong>(13) List all factors of 24:</strong>
+                <div class="factor-scaffold">
+                    <span class="pair-box">1 × __</span>
+                    <span class="pair-box">2 × __</span>
+                    <span class="pair-box">3 × __</span>
+                    <span class="pair-box">4 × __</span>
+                </div>
+            </div>
+
+            <div class="factor-row">
+                <strong>(14) List all factors of 36:</strong>
+                <div class="work-area" style="height: 60px; margin-top: 10px;"></div>
+            </div>
+
+            <div class="factor-row">
+                <strong>(15) Find the Greatest Common Factor (GCF) of 18 and 24:</strong>
+                <div class="grid-2-col" style="margin-top: 10px;">
+                    <div class="work-area" style="height: 80px;"><span class="scaffold-text">Factors of 18:</span></div>
+                    <div class="work-area" style="height: 80px;"><span class="scaffold-text">Factors of 24:</span></div>
+                </div>
+                <div class="answer-line" style="margin-top: 10px;">GCF = <div class="answer-input"></div></div>
+            </div>
+
+            <!-- Multiples Section -->
+            <h3 style="margin-top: 30px;">Multiples & LCM</h3>
+
+            <div class="worked-example">
+                <span class="example-label">Worked Example: LCM of 3 and 4</span>
+                <div class="example-content">
+                    <div class="example-math">
+                        Multiples of 3: 3, 6, 9, <strong>12</strong>, 15<br>
+                        Multiples of 4: 4, 8, <strong>12</strong>, 16
+                    </div>
+                    <div class="example-note">LCM = 12</div>
+                </div>
+            </div>
+
+            <div class="grid-2-col">
+                <div class="question-card">
+                    <strong>(16) List first 5 multiples of 7:</strong>
+                    <div class="work-area" style="height: 50px;"></div>
+                </div>
+                <div class="question-card">
+                    <strong>(17) List first 5 multiples of 9:</strong>
+                    <div class="work-area" style="height: 50px;"></div>
+                </div>
+            </div>
+
+            <div class="grid-2-col" style="margin-top: 20px;">
+                <div class="question-card">
+                    <strong>(18) Find LCM of 6 and 8:</strong>
+                    <div class="work-area" style="height: 80px;"><span class="scaffold-text">6: <br>8:</span></div>
+                    <div class="answer-line">LCM = <div class="answer-input"></div></div>
+                </div>
+                <div class="question-card">
+                    <strong>(19) Find LCM of 12 and 15:</strong>
+                    <div class="work-area" style="height: 80px;"><span class="scaffold-text">12: <br>15:</span></div>
+                    <div class="answer-line">LCM = <div class="answer-input"></div></div>
+                </div>
+            </div>
+
+            <!-- Challenge Problem -->
+            <div class="challenge-box no-break">
+                <div class="challenge-header">
+                    <i class="fa-solid fa-star"></i> Challenge Problem (20)
+                </div>
+                <p>Two bells ring at different intervals. <strong>Bell A</strong> rings every <strong>12 minutes</strong>, and <strong>Bell B</strong> rings every <strong>18 minutes</strong>. If both bells ring together at noon, at what time will they next ring together?</p>
+                
+                <div class="work-area" style="background: white; height: 100px;">
+                    <div class="scaffold-text">Hint: Find the LCM of 12 and 18.</div>
+                </div>
+                <div class="answer-line">Time: <div class="answer-input" style="width: 120px;"></div></div>
+            </div>
+
+        </section>
+
+        <!-- Self Check -->
+        <div class="checklist-box no-break">
+            <div style="font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Check your work!</div>
+            <div class="checkbox-item">
+                <div class="custom-check"></div>
+                <span>I checked my equation by substituting my answer back.</span>
+            </div>
+            <div class="checkbox-item">
+                <div class="custom-check"></div>
+                <span>I listed all factor pairs before choosing my GCF.</span>
+            </div>
+            <div class="checkbox-item">
+                <div class="custom-check"></div>
+                <span>I used skip-counting to double check my multiples.</span>
+            </div>
+        </div>
+
+        <footer>
+            <span>Week 6 – Pre-Algebra · Solving Simple Equations; Factors & Multiples · UDL Worksheet</span>
+            <span>Page 2 of 2</span>
+        </footer>
+
+    </div>
+
+</body>
+</html>
