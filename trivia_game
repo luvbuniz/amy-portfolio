@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Literature Showdown 🕵️‍♀️📚</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #4f46e5; /* Indigo */
+            --primary-dark: #3730a3;
+            --secondary: #0d9488; /* Teal */
+            --secondary-dark: #0f766e;
+            --secondary-light: #ccfbf1;
+            --accent: #facc15; /* Yellow */
+            --bg: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --success: #22c55e;
+            --error: #ef4444;
+            --shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            line-height: 1.5;
+        }
+
+        /* --- Utilities --- */
+        .hidden { display: none !important; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1, h2, h3 { color: var(--primary-dark); font-weight: 700; }
+        .text-center { text-align: center; }
+        .mb-2 { margin-bottom: 0.5rem; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+
+        /* --- Card Style --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        /* --- Buttons --- */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(79, 70, 229, 0.3);
+            font-family: inherit;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 12px rgba(79, 70, 229, 0.4); }
+        .btn:active { transform: translateY(0); }
+        .btn:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0f766e 100%);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+        .btn-outline:hover { background: var(--primary); color: white; }
+
+        /* --- Inputs --- */
+        input[type="text"], input[type="number"] {
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        input:focus { outline: none; border-color: var(--primary); }
+
+        /* --- Header & Scoreboard --- */
+        header {
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 1.2rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px;}
+
+        .scoreboard-container {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .team-score {
+            background: var(--secondary-light);
+            color: var(--secondary-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid var(--secondary);
+            transition: transform 0.15s;
+        }
+        .team-score.active {
+            background: var(--accent);
+            color: #000;
+            border-color: #ca8a04;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(250, 204, 21, 0.5);
+        }
+
+        /* Team-colored scoreboard chips */
+        .team-score.team-0 {
+            background: #dbeafe;
+            border-color: #1d4ed8;
+            color: #1e3a8a;
+        }
+        .team-score.team-1 {
+            background: #fee2e2;
+            border-color: #b91c1c;
+            color: #7f1d1d;
+        }
+        .team-score.team-2 {
+            background: #dcfce7;
+            border-color: #15803d;
+            color: #14532d;
+        }
+        .team-score.team-3 {
+            background: #f3e8ff;
+            border-color: #7c3aed;
+            color: #4c1d95;
+        }
+
+        /* --- Accessibility Toggle --- */
+        .access-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            background: #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+        }
+        .access-toggle.on { background: var(--success); color: white; }
+
+        /* --- Game Sections --- */
+        .round-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #713f12;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .progress { color: var(--text-light); font-size: 0.9rem; margin-bottom: 1.5rem; }
+
+        .question-text {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+        }
+
+        /* --- Answer Grid --- */
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        @media(min-width: 600px) { .options-grid { grid-template-columns: 1fr 1fr; } }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            font-size: 1.1rem;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .option-btn:hover, .option-btn:focus {
+            border-color: var(--primary);
+            background: #eef2ff;
+            outline: none;
+        }
+        .option-btn.correct { background: #dcfce7; border-color: var(--success); color: #14532d; }
+        .option-btn.incorrect { background: #fee2e2; border-color: var(--error); color: #7f1d1d; opacity: 0.7; }
+
+        /* --- Buzzers --- */
+        .buzzer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        /* Base buzzer button */
+        .buzzer-btn {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.3);
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.1s;
+            text-align: center;
+            padding: 0 8px;
+        }
+
+        .buzzer-btn:active {
+            transform: scale(0.92);
+        }
+
+        /* Team Colors for Buzzers */
+        .buzzer-btn.team-0 {
+            /* Blue */
+            background: radial-gradient(circle at 30% 30%, #60a5fa, #1d4ed8);
+        }
+
+        .buzzer-btn.team-1 {
+            /* Red */
+            background: radial-gradient(circle at 30% 30%, #fca5a5, #b91c1c);
+        }
+
+        .buzzer-btn.team-2 {
+            /* Green */
+            background: radial-gradient(circle at 30% 30%, #bbf7d0, #15803d);
+        }
+
+        .buzzer-btn.team-3 {
+            /* Purple */
+            background: radial-gradient(circle at 30% 30%, #e9d5ff, #7c3aed);
+        }
+
+        .buzzer-btn span {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* --- Feedback --- */
+        .feedback-area {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            background: #f8fafc;
+            border-left: 6px solid #ccc;
+            animation: fadeIn 0.5s ease;
+        }
+        .feedback-correct { border-color: var(--success); background: #f0fdf4; }
+        .feedback-incorrect { border-color: var(--error); background: #fef2f2; }
+        .explanation { margin-top: 0.5rem; color: var(--text-light); }
+
+        /* --- Results --- */
+        .rank-card {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+        }
+        .rank-card.winner { border: 2px solid var(--accent); background: #fefce8; }
+
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: translateY(10px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        /* Focus styles for accessibility */
+        *:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Literature Showdown 🕵️‍♀️📚</div>
+        <button id="readAloudBtn" class="access-toggle" aria-label="Toggle Read Aloud Mode">
+            🗣️ Read Aloud: Off
+        </button>
+    </header>
+
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="container">
+        <div class="card text-center">
+            <h1 class="mb-4">Welcome, Detectives! 🕵️‍♀️</h1>
+            <p class="mb-6" style="font-size: 1.2rem;">
+                Get ready for a team trivia review of Weeks 1–12.<br>
+                Gather your clues and test your knowledge!
+            </p>
+            
+            <div style="max-width: 400px; margin: 0 auto; text-align: left;">
+                <label class="mb-2" style="display:block; font-weight:600;">
+                    Number of Teams (2-4):
+                </label>
+                <input type="number" id="numTeams" min="2" max="4" value="2" class="mb-4">
+                
+                <div id="teamNamesInputs">
+                    <input type="text" placeholder="Team 1 Name" class="team-input">
+                    <input type="text" placeholder="Team 2 Name" class="team-input">
+                </div>
+            </div>
+
+            <button onclick="game.start()" class="btn mt-4">🎉 Start the Show!</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="container hidden">
+        <!-- Scoreboard -->
+        <div id="scoreboard" class="scoreboard-container mb-6">
+            <!-- Injected via JS -->
+        </div>
+
+        <div class="card text-center">
+            <div id="roundBadge" class="round-badge">📘 Round 1</div>
+            <div id="progressText" class="progress">📊 Question 1 of 5</div>
+
+            <!-- Question Area -->
+            <h2 id="questionText" class="question-text">Loading Question...</h2>
+
+            <!-- Phase 1: Buzzers -->
+            <div id="buzzerArea" class="buzzer-grid">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Phase 2: Answer Options -->
+            <div id="optionsArea" class="options-grid hidden">
+                <!-- Injected via JS -->
+            </div>
+
+            <!-- Feedback Area -->
+            <div id="feedbackArea" class="feedback-area hidden">
+                <h3 id="feedbackTitle"></h3>
+                <div id="feedbackExplanation" class="explanation"></div>
+                <button onclick="game.nextQuestion()" class="btn btn-secondary" style="margin-top: 1rem;">
+                    ➡️ Next Question
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="container hidden">
+        <div class="card text-center">
+            <h1 class="mb-2">🏆 Case Closed!</h1>
+            <p class="mb-6">Great investigation work, everyone. Here are the final standings:</p>
+            
+            <div id="finalResults" style="text-align: left; margin-bottom: 2rem;">
+                <!-- Injected via JS -->
+            </div>
+
+            <button onclick="location.reload()" class="btn">🔁 Play Again</button>
+        </div>
+    </div>
+
+    <script>
+        /* ----------------------------------------------------------------
+           DATA: Questions & Content
+           ---------------------------------------------------------------- */
+        const ROUNDS_DATA = [
+            {
+                id: "r1",
+                title: "📘 Round 1: Story & Author Matching",
+                questions: [
+                    { q: "Who wrote \"Don’t Quit\"?", a: "Edgar A. Guest", type: "author" },
+                    { q: "Who wrote \"The Last Leaf\"?", a: "O. Henry", type: "author" },
+                    { q: "Who wrote \"Stray\"?", a: "Cynthia Rylant", type: "author" },
+                    { q: "Who wrote \"A Worn Path\"?", a: "Eudora Welty", type: "author" },
+                    { q: "Who wrote \"Two Kinds\"?", a: "Amy Tan", type: "author" },
+                    { q: "Who wrote \"Everyday Use\"?", a: "Alice Walker", type: "author" },
+                    { q: "Who wrote \"The Scarlet Ibis\"?", a: "James Hurst", type: "author" },
+                    { q: "Who wrote \"The Medicine Bag\"?", a: "Virginia Driving Hawk Sneve", type: "author" },
+                    { q: "Who wrote \"What’s the Worst That Could Happen?\"?", a: "Bruce Coville", type: "author" },
+                    { q: "Who wrote \"The Secret Life of Walter Mitty\"?", a: "James Thurber", type: "author" }
+                ]
+            },
+            {
+                id: "r2",
+                title: "🧠 Round 2: Literary Devices",
+                questions: [
+                    { q: "S.T.E.A.L. helps us analyze:", a: "Characters", explanation: "Speech, Thoughts, Effect on others, Actions, Looks." },
+                    { q: "Situational irony is:", a: "When the opposite of what’s expected happens", explanation: "Like a fire station burning down." },
+                    { q: "A frame narrative is:", a: "A story within a story", explanation: "Like a picture frame holding a picture inside." },
+                    { q: "Escapism is:", a: "Using imagination/daydreams to escape reality", explanation: "Walter Mitty is a prime example." },
+                    { q: "Dialect is:", a: "The way a group of people speak", explanation: "It usually involves unique accent, grammar, or vocabulary." },
+                    { q: "Point of view refers to:", a: "Who is telling the story", explanation: "First person (I), Third person (He/She), etc." },
+                    { q: "Symbolism is when:", a: "Objects represent deeper meanings", explanation: "Like the Ibis representing Doodle." },
+                    { q: "A tall tale usually includes:", a: "Exaggerated, impossible events", explanation: "Stories that are 'larger than life'." },
+                    { q: "Theme is:", a: "The underlying message or truth", explanation: "The big idea the author wants you to learn." },
+                    { q: "Subtext means:", a: "The hidden meaning beneath surface dialogue", explanation: "What characters mean, not just what they say." }
+                ]
+            },
+            {
+                id: "r3",
+                title: "🎭 Round 3: Characters & Stories",
+                questions: [
+                    { q: "Match: Doris (girl who finds stray puppy)", a: "“Stray”" },
+                    { q: "Match: Phoenix Jackson (elderly woman on a journey)", a: "“A Worn Path”" },
+                    { q: "Match: Jing-mei (daughter with piano lessons)", a: "“Two Kinds”" },
+                    { q: "Match: Doodle (younger brother with disabilities)", a: "“The Scarlet Ibis”" },
+                    { q: "Match: Grandpa (brings sacred medicine bag)", a: "“The Medicine Bag”" }
+                ]
+            },
+            {
+                id: "r4",
+                title: "⚡ Round 4: Lightning Round",
+                questions: [] // Populated dynamically
+            }
+        ];
+
+        // Pools for generating wrong answers
+        const AUTHOR_POOL = ROUNDS_DATA[0].questions.map(x => x.a);
+        const STORY_POOL = ROUNDS_DATA[2].questions.map(x => x.a);
+        const DEVICE_POOL = ROUNDS_DATA[1].questions.map(x => x.a);
+
+        /* ----------------------------------------------------------------
+           GAME ENGINE
+           ---------------------------------------------------------------- */
+        const game = {
+            teams: [],
+            currentRoundIndex: 0,
+            currentQIndex: 0,
+            currentRoundQuestions: [],
+            buzzedTeamIndex: null,
+            readAloud: false,
+            speechSynth: window.speechSynthesis,
+            
+            // DOM Elements
+            els: {
+                welcome: document.getElementById('welcome-screen'),
+                game: document.getElementById('game-screen'),
+                results: document.getElementById('results-screen'),
+                scoreboard: document.getElementById('scoreboard'),
+                badge: document.getElementById('roundBadge'),
+                progress: document.getElementById('progressText'),
+                question: document.getElementById('questionText'),
+                buzzerArea: document.getElementById('buzzerArea'),
+                optionsArea: document.getElementById('optionsArea'),
+                feedbackArea: document.getElementById('feedbackArea'),
+                feedbackTitle: document.getElementById('feedbackTitle'),
+                feedbackExp: document.getElementById('feedbackExplanation'),
+                teamInputs: document.getElementById('teamNamesInputs'),
+                numTeamsInput: document.getElementById('numTeams')
+            },
+
+            init: function() {
+                // Setup Team Name Inputs Listener
+                this.els.numTeamsInput.addEventListener('change', (e) => {
+                    const n = parseInt(e.target.value);
+                    this.els.teamInputs.innerHTML = '';
+                    for(let i=1; i<=n; i++) {
+                        const input = document.createElement('input');
+                        input.type = 'text';
+                        input.placeholder = `Team ${i} Name`;
+                        input.className = 'team-input';
+                        this.els.teamInputs.appendChild(input);
+                    }
+                });
+                
+                // Populate Round 4 (Lightning)
+                let allQ = [...ROUNDS_DATA[0].questions, ...ROUNDS_DATA[1].questions, ...ROUNDS_DATA[2].questions];
+                allQ = this.shuffle(allQ);
+                ROUNDS_DATA[3].questions = allQ.slice(0, 5).map(q => ({...q, isLightning: true}));
+
+                // Accessibility Toggle
+                document.getElementById('readAloudBtn').addEventListener('click', (e) => {
+                    this.readAloud = !this.readAloud;
+                    e.target.classList.toggle('on');
+                    e.target.innerText = this.readAloud ? "🗣️ Read Aloud: On" : "🗣️ Read Aloud: Off";
+                    if(!this.readAloud) this.speechSynth.cancel();
+                });
+            },
+
+            start: function() {
+                const inputs = this.els.teamInputs.querySelectorAll('input');
+                let count = parseInt(this.els.numTeamsInput.value);
+                if (isNaN(count) || count < 2) count = 2;
+                if (count > 4) count = 4;
+
+                this.teams = [];
+                for(let i=0; i<count; i++) {
+                    let name = (inputs[i] && inputs[i].value.trim() !== "") ? inputs[i].value.trim() : `Team ${String.fromCharCode(65+i)}`;
+                    this.teams.push({ name: name, score: 0 });
+                }
+
+                this.els.welcome.classList.add('hidden');
+                this.els.game.classList.remove('hidden');
+                
+                this.loadRound(0);
+            },
+
+            loadRound: function(rIndex) {
+                this.currentRoundIndex = rIndex;
+                this.currentQIndex = 0;
+                
+                // Shuffle questions for this round
+                let qList = [...ROUNDS_DATA[rIndex].questions];
+                if (!ROUNDS_DATA[rIndex].questions[0].isLightning) {
+                    qList = this.shuffle(qList);
+                }
+                this.currentRoundQuestions = qList;
+
+                this.renderScoreboard();
+                this.renderQuestion();
+            },
+
+            renderScoreboard: function() {
+                this.els.scoreboard.innerHTML = '';
+                this.teams.forEach((t, idx) => {
+                    const div = document.createElement('div');
+                    div.className = `team-score team-${idx} ${idx === this.buzzedTeamIndex ? 'active' : ''}`;
+                    div.innerText = `${t.name}: ${t.score}`;
+                    this.els.scoreboard.appendChild(div);
+                });
+            },
+
+            renderQuestion: function() {
+                const round = ROUNDS_DATA[this.currentRoundIndex];
+                const qData = this.currentRoundQuestions[this.currentQIndex];
+
+                // Reset Views
+                this.els.buzzerArea.classList.remove('hidden');
+                this.els.optionsArea.classList.add('hidden');
+                this.els.feedbackArea.classList.add('hidden');
+                this.buzzedTeamIndex = null;
+                this.renderScoreboard();
+
+                // Text Content
+                this.els.badge.innerText = round.title;
+                this.els.progress.innerText = `📊 Question ${this.currentQIndex + 1} of ${this.currentRoundQuestions.length}`;
+                this.els.question.innerText = qData.q;
+
+                // Generate Buzzers
+                this.els.buzzerArea.innerHTML = '';
+                this.teams.forEach((t, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = `buzzer-btn team-${idx}`;
+                    btn.innerHTML = `<span>🔔</span>${t.name}`;
+                    btn.onclick = () => this.handleBuzz(idx);
+                    this.els.buzzerArea.appendChild(btn);
+                });
+
+                if(this.readAloud) this.speak(`${round.title}. Question: ${qData.q}`);
+            },
+
+            handleBuzz: function(teamIdx) {
+                this.buzzedTeamIndex = teamIdx;
+                this.renderScoreboard(); // Highlights active team
+                
+                // Hide Buzzers, Show Options
+                this.els.buzzerArea.classList.add('hidden');
+                this.els.optionsArea.classList.remove('hidden');
+                
+                this.renderOptions();
+            },
+
+            renderOptions: function() {
+                const qData = this.currentRoundQuestions[this.currentQIndex];
+                const correct = qData.a;
+                let options = [correct];
+
+                // Generate Distractors based on pool
+                let pool = [];
+                if (this.currentRoundIndex === 0) pool = AUTHOR_POOL;
+                else if (this.currentRoundIndex === 1) pool = DEVICE_POOL;
+                else if (this.currentRoundIndex === 2) pool = STORY_POOL;
+                else {
+                   // Lightning - guess pool based on answer existence
+                   if (AUTHOR_POOL.includes(correct)) pool = AUTHOR_POOL;
+                   else if (DEVICE_POOL.includes(correct)) pool = DEVICE_POOL;
+                   else pool = STORY_POOL;
+                }
+
+                const distractors = this.shuffle(pool.filter(x => x !== correct)).slice(0, 3);
+                options = this.shuffle([...options, ...distractors]);
+
+                this.els.optionsArea.innerHTML = '';
+                const letters = ['A', 'B', 'C', 'D'];
+                
+                let speakText = "Options are: ";
+
+                options.forEach((opt, i) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'option-btn';
+                    let emoji = "✏️";
+                    if(ROUNDS_DATA[this.currentRoundIndex].id === "r2") emoji = "🧠";
+                    if(ROUNDS_DATA[this.currentRoundIndex].id === "r3") emoji = "📖";
+                    
+                    btn.innerHTML = `<span style="font-weight:700; color:var(--primary)">${letters[i]}.</span> ${emoji} ${opt}`;
+                    btn.onclick = () => this.checkAnswer(opt, correct);
+                    this.els.optionsArea.appendChild(btn);
+                    
+                    speakText += `${letters[i]}, ${opt}. `;
+                });
+
+                if(this.readAloud) this.speak(speakText);
+            },
+
+            checkAnswer: function(selected, correct) {
+                const isCorrect = selected === correct;
+                const qData = this.currentRoundQuestions[this.currentQIndex];
+
+                // Update Score
+                if (isCorrect && this.buzzedTeamIndex !== null) {
+                    this.teams[this.buzzedTeamIndex].score += 1;
+                }
+
+                // UI Updates
+                const btns = this.els.optionsArea.querySelectorAll('button');
+                btns.forEach(btn => {
+                    btn.disabled = true;
+                    if(btn.innerText.includes(correct)) btn.classList.add('correct');
+                    else if(btn.innerText.includes(selected) && !isCorrect) btn.classList.add('incorrect');
+                });
+
+                this.renderScoreboard();
+
+                // Show Feedback
+                this.els.feedbackArea.classList.remove('hidden');
+                
+                if(isCorrect) {
+                    this.els.feedbackArea.className = "feedback-area feedback-correct";
+                    this.els.feedbackTitle.innerHTML = "⭐ Correct! Great work, detective!";
+                    if(this.readAloud) this.speak("Correct! Great work.");
+                } else {
+                    this.els.feedbackArea.className = "feedback-area feedback-incorrect";
+                    this.els.feedbackTitle.innerHTML = "❌ Not quite — keep investigating!";
+                    if(this.readAloud) this.speak(`Not quite. The correct answer is ${correct}.`);
+                }
+
+                let exp = `<strong>Correct Answer:</strong> ${correct}`;
+                if(qData.explanation) {
+                    exp += `<br><br>💡 <em>${qData.explanation}</em>`;
+                }
+                this.els.feedbackExp.innerHTML = exp;
+                
+                setTimeout(() => {
+                   this.els.feedbackArea.querySelector('button').focus(); 
+                }, 100);
+            },
+
+            nextQuestion: function() {
+                this.currentQIndex++;
+                
+                if(this.currentQIndex >= this.currentRoundQuestions.length) {
+                    if(this.currentRoundIndex < ROUNDS_DATA.length - 1) {
+                        this.loadRound(this.currentRoundIndex + 1);
+                    } else {
+                        this.endGame();
+                    }
+                } else {
+                    this.renderQuestion();
+                }
+            },
+
+            endGame: function() {
+                this.els.game.classList.add('hidden');
+                this.els.results.classList.remove('hidden');
+
+                const sortedTeams = [...this.teams].sort((a, b) => b.score - a.score);
+                const container = document.getElementById('finalResults');
+                container.innerHTML = '';
+
+                sortedTeams.forEach((t, i) => {
+                    let rank = "🟡 Novice Detective";
+                    if (i === 0) rank = "🟣 Master Detective 🏆";
+                    else if (i === 1) rank = "🔵 Sleuth-in-Training";
+
+                    const div = document.createElement('div');
+                    div.className = `rank-card ${i === 0 ? 'winner' : ''}`;
+                    div.innerHTML = `
+                        <div>
+                            <strong style="font-size:1.2rem">${t.name}</strong><br>
+                            <span style="font-size:0.9rem; color:#666">${rank}</span>
+                        </div>
+                        <div style="font-size:1.5rem; font-weight:700; color:var(--primary)">${t.score} pts</div>
+                    `;
+                    container.appendChild(div);
+                });
+                
+                if(this.readAloud && sortedTeams.length > 0) {
+                    this.speak(`Case Closed. The winner is ${sortedTeams[0].name} with ${sortedTeams[0].score} points.`);
+                }
+            },
+
+            // Utilities
+            shuffle: function(array) {
+                let currentIndex = array.length, randomIndex;
+                while (currentIndex != 0) {
+                    randomIndex = Math.floor(Math.random() * currentIndex);
+                    currentIndex--;
+                    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+                }
+                return array;
+            },
+
+            speak: function(text) {
+                if(!this.readAloud) return;
+                this.speechSynth.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.rate = 1;
+                utterance.pitch = 1;
+                this.speechSynth.speak(utterance);
+            }
+        };
+
+        window.onload = () => game.init();
+    </script>
+</body>
+</html>
