@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.T.E.A.L. Character Detective Worksheet</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --c-speech: #3b82f6; /* Blue */
+            --c-speech-bg: #eff6ff;
+            --c-thoughts: #a855f7; /* Purple */
+            --c-thoughts-bg: #faf5ff;
+            --c-effect: #22c55e; /* Green */
+            --c-effect-bg: #f0fdf4;
+            --c-actions: #f97316; /* Orange */
+            --c-actions-bg: #fff7ed;
+            --c-looks: #ec4899; /* Pink */
+            --c-looks-bg: #fdf2f8;
+            --text-main: #1e293b;
+            --text-light: #64748b;
+            --border-color: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid var(--border-color);
+        }
+
+        /* HEADER */
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed var(--border-color);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0 0 5px 0;
+            background: linear-gradient(90deg, #3b82f6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .student-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .student-info div {
+            border-bottom: 1px solid var(--border-color);
+            padding: 0 10px 5px;
+            min-width: 150px;
+        }
+
+        /* SECTIONS */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-main);
+        }
+
+        /* HOW TO PLAY & EXAMPLE GRID */
+        .top-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 600px) {
+            .top-grid { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .card.rules {
+            background: #f1f5f9;
+        }
+
+        .rule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .rule-list li {
+            margin-bottom: 10px;
+            padding-left: 24px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .rule-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--c-effect);
+            font-weight: bold;
+        }
+
+        .emoji-row {
+            margin-top: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+            letter-spacing: 10px;
+            opacity: 0.8;
+        }
+
+        /* EXAMPLE BOX */
+        .example-grid {
+            display: grid;
+            gap: 8px;
+        }
+
+        .ex-row {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            padding: 6px 10px;
+            border-radius: 8px;
+        }
+
+        .badge {
+            font-weight: 700;
+            width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: white;
+            font-size: 0.8rem;
+            flex-shrink: 0;
+        }
+        
+        .ex-s .badge { background-color: var(--c-speech); }
+        .ex-s { background-color: var(--c-speech-bg); color: #1e3a8a; }
+        
+        .ex-t .badge { background-color: var(--c-thoughts); }
+        .ex-t { background-color: var(--c-thoughts-bg); color: #581c87; }
+
+        .ex-e .badge { background-color: var(--c-effect); }
+        .ex-e { background-color: var(--c-effect-bg); color: #14532d; }
+
+        .ex-a .badge { background-color: var(--c-actions); }
+        .ex-a { background-color: var(--c-actions-bg); color: #7c2d12; }
+
+        .ex-l .badge { background-color: var(--c-looks); }
+        .ex-l { background-color: var(--c-looks-bg); color: #831843; }
+
+        /* MAIN INPUT AREA */
+        .clues-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .clue-box {
+            border-radius: 16px;
+            padding: 15px 20px;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .clue-box:focus-within {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .clue-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .clue-icon {
+            margin-left: auto;
+            font-size: 1.2rem;
+        }
+
+        .clue-input {
+            width: 100%;
+            border: none;
+            background: transparent;
+            border-bottom: 2px dashed rgba(0,0,0,0.1);
+            padding: 8px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .clue-input:focus {
+            border-bottom-style: solid;
+        }
+
+        /* Specific Styles for Inputs */
+        .box-s { background-color: var(--c-speech-bg); color: #1e40af; border-color: #dbeafe; }
+        .box-s .clue-input:focus { border-color: var(--c-speech); }
+        
+        .box-t { background-color: var(--c-thoughts-bg); color: #6b21a8; border-color: #f3e8ff; }
+        .box-t .clue-input:focus { border-color: var(--c-thoughts); }
+        
+        .box-e { background-color: var(--c-effect-bg); color: #15803d; border-color: #dcfce7; }
+        .box-e .clue-input:focus { border-color: var(--c-effect); }
+
+        .box-a { background-color: var(--c-actions-bg); color: #c2410c; border-color: #ffedd5; }
+        .box-a .clue-input:focus { border-color: var(--c-actions); }
+
+        .box-l { background-color: var(--c-looks-bg); color: #be185d; border-color: #fce7f3; }
+        .box-l .clue-input:focus { border-color: var(--c-looks); }
+
+        /* GUESSING & ANSWER */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        @media (max-width: 700px) {
+            .bottom-grid { grid-template-columns: 1fr; }
+        }
+
+        .guess-box {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .guess-line {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .guess-num {
+            font-weight: bold;
+            color: var(--text-light);
+            width: 20px;
+        }
+        .guess-input {
+            flex-grow: 1;
+            border: none;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .answer-box {
+            background: #f0fdf4;
+            border: 2px solid var(--c-effect);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .answer-label {
+            color: #166534;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        /* FOOTER / CHALLENGE */
+        .bonus-box {
+            background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%);
+            border: 1px solid #fcd34d;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .rubric {
+            display: flex;
+            justify-content: space-between;
+            background: var(--text-main);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        .rubric-item {
+            text-align: center;
+        }
+        .rubric-val {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--c-actions); /* Orange pop */
+        }
+
+        /* PRINT OPTIMIZATION */
+        @media print {
+            body { padding: 0; background: white; }
+            .container { box-shadow: none; border: none; width: 100%; max-width: 100%; padding: 10px; }
+            h1 { -webkit-text-fill-color: black; }
+            .clue-input { border-bottom: 1px solid #000; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>S.T.E.A.L. Character Detective 🔍🕵️‍♀️</h1>
+            <div class="subtitle">Use characterization clues to identify a mystery character!</div>
+            <div class="student-info">
+                <div>Name:</div>
+                <div>Date:</div>
+                <div>Team:</div>
+            </div>
+        </header>
+
+        <div class="top-grid">
+            <!-- Rules -->
+            <div class="card rules">
+                <div class="section-title">📝 How to Play</div>
+                <ul class="rule-list">
+                    <li>Pick a character (books, movies, games)</li>
+                    <li>Fill in <strong>S.T.E.A.L.</strong> clues below</li>
+                    <li>🚫 <strong>No names</strong> or dead giveaways!</li>
+                    <li>Your team tries to guess the character</li>
+                    <li>Take turns being the detective</li>
+                </ul>
+                <div class="emoji-row">🗣️ 💭 🎭 🎬 🧠</div>
+            </div>
+
+            <!-- Example -->
+            <div class="card">
+                <div class="section-title">💡 Example: Wicked Witch</div>
+                <div class="example-grid">
+                    <div class="ex-row ex-s">
+                        <div class="badge">S</div> "I'll get you, my pretty!"
+                    </div>
+                    <div class="ex-row ex-t">
+                        <div class="badge">T</div> Wants revenge & power
+                    </div>
+                    <div class="ex-row ex-e">
+                        <div class="badge">E</div> Everyone fears her
+                    </div>
+                    <div class="ex-row ex-a">
+                        <div class="badge">A</div> Rides a broomstick
+                    </div>
+                    <div class="ex-row ex-l">
+                        <div class="badge">L</div> Green skin, black hat
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Activity -->
+        <h2 class="section-title" style="font-size: 1.5rem; justify-content: center;">🧩 My Mystery Character</h2>
+
+        <div class="clues-container">
+            
+            <!-- Speech -->
+            <div class="clue-box box-s">
+                <div class="clue-header">
+                    <span>S — Speech</span>
+                    <span class="clue-icon">🗣️</span>
+                </div>
+                <input type="text" class="clue-input" placeholder="What do they say? Any catchphrases?">
+            </div>
+
+            <!-- Thoughts -->
+            <div class="clue-box box-t">
+                <div class="clue-header">
+                    <span>T — Thoughts</span>
+                    <span class="clue-icon">💭</span>
+                </div>
+                <input type="text" class="clue-input" placeholder="What do they believe, think, or want?">
+            </div>
+
+            <!-- Effect -->
+            <div class="clue-box box-e">
+                <div class="clue-header">
+                    <span>E — Effect on Others</span>
+                    <span class="clue-icon">👥</span>
+                </div>
+                <input type="text" class="clue-input" placeholder="How do others react to them? (Fear, love, laugh?)">
+            </div>
+
+            <!-- Actions -->
+            <div class="clue-box box-a">
+                <div class="clue-header">
+                    <span>A — Actions</span>
+                    <span class="clue-icon">🎯</span>
+                </div>
+                <input type="text" class="clue-input" placeholder="What do they do? How do they behave?">
+            </div>
+
+            <!-- Looks -->
+            <div class="clue-box box-l">
+                <div class="clue-header">
+                    <span>L — Looks</span>
+                    <span class="clue-icon">👀</span>
+                </div>
+                <input type="text" class="clue-input" placeholder="Physical appearance, clothing, style?">
+            </div>
+
+        </div>
+
+        <div class="bottom-grid">
+            <!-- Guessing -->
+            <div class="guess-box">
+                <div class="section-title">🤔 Team Guesses</div>
+                <div class="guess-line"><span class="guess-num">1.</span> <input class="guess-input"></div>
+                <div class="guess-line"><span class="guess-num">2.</span> <input class="guess-input"></div>
+                <div class="guess-line"><span class="guess-num">3.</span> <input class="guess-input"></div>
+            </div>
+
+            <!-- Answer -->
+            <div class="answer-box">
+                <div class="answer-label">✅ Correct Answer</div>
+                <input type="text" style="text-align:center; border:none; background:transparent; font-weight:bold; font-size:1.2rem; border-bottom:2px solid #22c55e;" placeholder="Reveal Here!">
+            </div>
+        </div>
+
+        <!-- Bonus -->
+        <div class="bonus-box">
+            <div style="font-size: 2rem;">🚀</div>
+            <div>
+                <strong>Bonus Challenges:</strong><br>
+                Create a "trick clue" that sounds obvious but isn't OR write a second character using only 3 clues!
+            </div>
+        </div>
+
+        <!-- Rubric -->
+        <div class="rubric">
+            <div style="display:flex; align-items:center; gap:10px; font-weight:600;">
+                <span>👩‍🏫 Teacher Guide</span>
+            </div>
+            <div class="rubric-item">
+                <div class="rubric-val">10</div>
+                <div>Completion</div>
+            </div>
+            <div class="rubric-item">
+                <div class="rubric-val">3</div>
+                <div>Creativity</div>
+            </div>
+            <div class="rubric-item">
+                <div class="rubric-val">2</div>
+                <div>Participation</div>
+            </div>
+            <div style="font-weight:700; font-size:1.1rem;">/ 15 pts</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
